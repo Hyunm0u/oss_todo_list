@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="ko" style=""><head></head><body class="bg-background text-on-background min-h-screen pb-32"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#fff6f4",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-primary": "#b3c5ff",
+                    "outline-variant": "#c2c6d8",
+                    "secondary": "#8c5000",
+                    "on-secondary-fixed-variant": "#6a3b00",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1d",
+                    "on-surface-variant": "#424656",
+                    "surface-bright": "#f8f9fa",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary-container": "#f8f7ff",
+                    "background": "#f8f9fa",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#b60009",
+                    "secondary-container": "#fe9400",
+                    "on-tertiary-fixed": "#410001",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdad5",
+                    "outline": "#727687",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed": "#ffdcbf",
+                    "on-secondary-container": "#633700",
+                    "inverse-surface": "#2e3132",
+                    "surface-container": "#edeeef",
+                    "surface-variant": "#e1e3e4",
+                    "primary": "#0050cb",
+                    "on-secondary-fixed": "#2d1600",
+                    "primary-fixed": "#dae1ff",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "surface": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#de211c",
+                    "surface-tint": "#0054d6",
+                    "surface-container-high": "#e7e8e9",
+                    "secondary-fixed-dim": "#ffb874",
+                    "primary-container": "#0066ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "4px",
+                    "margin-mobile": "20px",
+                    "stack-lg": "24px",
+                    "container-padding": "16px",
+                    "base": "8px",
+                    "stack-md": "12px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+        .chart-gradient { background: linear-gradient(180deg, rgba(0, 80, 203, 0.1) 0%, rgba(255, 255, 255, 0) 100%); }
+        .satisfying-snap:active { transform: scale(0.95); transition: transform 0.1s ease; }
+        .accent-bar { width: 4px; height: 100%; position: absolute; left: 0; top: 0; border-radius: 4px 0 0 4px; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
+
+
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-background dark:bg-background z-50 flex justify-between items-center px-margin-mobile py-base">
+<div class="flex items-center gap-stack-md">
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGnnYL2Gds4W7nb3rr-eJPwPsR0byXNwN__FFKGDTkwk1f-LU00vSe69YB0ygfRBhjYfPbIq_bVTJnZwQzzSkmQZd9uCb80CbYB-w_8QeZR3iL2Y-bqk8majEAa_q9hICh1dN27fX8UopPAkdK81L8l-fNKelbZrKM5T55O58wiqjDoaOzInS2v1YMDu_O-6Y-CR7PCdJGLwd7JAlTvCW68vt80uKOC1XCLPu7iOCC9bA6p-6mT6Nf9JCCl_JT_Z99GHTUbHOgO7Y">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">학습 통계 리포트</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors p-base rounded-full active:scale-95 duration-200">
+            notifications
+        </button>
+</header>
+<main class="px-margin-mobile mt-stack-lg space-y-stack-lg">
+<!-- Streak Achievement Section (New: 3. Continuous Achievement Record) -->
+<section class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm relative overflow-hidden">
+<div class="accent-bar bg-secondary-container"></div>
+<div class="flex items-center justify-between">
+<div>
+<span class="text-label-md font-label-md text-outline mb-base block">연속 달성 기록</span>
+<h2 class="text-title-md font-title-md text-on-surface">15일 연속 달성 중!</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">지난 최고 기록(12일)을 경신했습니다.</p>
+</div>
+<div class="flex items-center justify-center bg-secondary-fixed w-12 h-12 rounded-full">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+</div>
+</section>
+<!-- Summary Insights Card -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="accent-bar bg-primary"></div>
+<div>
+<span class="text-label-md font-label-md text-outline mb-base block">생산성 분석</span>
+<h2 class="text-title-md font-title-md text-on-surface mb-stack-sm">화요일에 가장 효율적입니다</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">평균보다 18% 더 많은 태스크를 완료했습니다.</p>
+</div>
+<div class="mt-stack-lg flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-label-md font-label-md text-primary font-bold uppercase">Keep it up!</span>
+</div>
+</div>
+<!-- Monthly To-Do Completion Gauge (Enhanced: 1. Monthly To-Do Completion Rate) -->
+<div class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm flex items-center justify-between">
+<div>
+<span class="text-label-md font-label-md text-outline mb-base block">월간 To-Do 완료율 (10월)</span>
+<div class="flex items-baseline gap-base">
+<span class="text-headline-xl font-headline-xl text-on-surface">84</span>
+<span class="text-title-md font-title-md text-on-surface-variant">%</span>
+</div>
+<!-- (New: 5. Weekly vs Monthly Comparison - Data Point) -->
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-primary text-sm">arrow_upward</span>
+<span class="text-label-sm font-label-sm text-primary">지난달 대비 5.2% 상승</span>
+</div>
+</div>
+<div class="relative w-20 h-20">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-dasharray="213.6" stroke-dashoffset="34.1" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Task Success Trend (Line Chart & 5. Weekly vs Monthly Toggle) -->
+<section class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm">
+<div class="flex justify-between items-center mb-stack-lg">
+<h3 class="text-title-md font-title-md text-on-surface">태스크 달성 트렌드</h3>
+<div class="flex bg-surface-container rounded-pill p-1">
+<button class="bg-white text-primary text-label-sm font-label-sm px-stack-md py-1 rounded-pill shadow-sm">Weekly</button>
+<button class="text-outline text-label-sm font-label-sm px-stack-md py-1 rounded-pill">Monthly</button>
+</div>
+</div>
+<div class="h-48 w-full relative flex items-end justify-between px-base">
+<svg class="absolute inset-0 w-full h-full px-base" preserveAspectRatio="none" viewBox="0 0 100 100">
+<path d="M0,80 Q10,75 20,60 T40,65 T60,30 T80,45 T100,20" fill="none" stroke="#0050cb" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0,80 Q10,75 20,60 T40,65 T60,30 T80,45 T100,20 L100,100 L0,100 Z" fill="url(#chart-grad)" opacity="0.1"></path>
+<defs>
+<linearGradient id="chart-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0050cb"></stop>
+<stop offset="100%" stop-color="white"></stop>
+</linearGradient>
+</defs>
+</svg>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">월</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">화</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">수</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">목</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">금</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">토</span></div>
+<div class="z-10 flex flex-col items-center"><div class="w-2 h-2 rounded-full bg-primary mb-2"></div><span class="text-label-sm font-label-sm text-outline">일</span></div>
+</div>
+</section>
+<!-- Category Ratio (2. Category Performance Ratio) -->
+<section class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm">
+<h3 class="text-title-md font-title-md text-on-surface mb-stack-lg">카테고리별 수행 비율</h3>
+<div class="flex flex-col md:flex-row items-center gap-stack-lg">
+<div class="relative w-40 h-40">
+<svg class="w-full h-full transform rotate-[-90deg]" viewBox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#dae1ff" stroke-dasharray="100" stroke-dashoffset="0" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#0050cb" stroke-dasharray="60 40" stroke-dashoffset="0" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#fe9400" stroke-dasharray="25 75" stroke-dashoffset="-60" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="15.9" stroke="#ba1a1a" stroke-dasharray="15 85" stroke-dashoffset="-85" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-label-md font-label-md text-outline">전체 수행</span>
+<span class="text-title-md font-title-md text-on-surface">128회</span>
+</div>
+</div>
+<div class="flex-1 w-full space-y-stack-md">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-base">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-body-md font-body-md text-on-surface">학업 (Study)</span>
+</div>
+<span class="text-body-md font-body-md font-bold">60%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-base">
+<div class="w-3 h-3 rounded-full bg-secondary-container"></div>
+<span class="text-body-md font-body-md text-on-surface">건강 (Health)</span>
+</div>
+<span class="text-body-md font-body-md font-bold">25%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-base">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<span class="text-body-md font-body-md text-on-surface">기타 (Others)</span>
+</div>
+<span class="text-body-md font-body-md font-bold">15%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Postponed Task Analysis (New: 4. Most Postponed Task Analysis) -->
+<section class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm">
+<h3 class="text-title-md font-title-md text-on-surface mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-error">warning</span>
+                가장 많이 미룬 일정 분석
+            </h3>
+<div class="bg-error-container rounded-lg p-stack-md flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-error-container opacity-80">최다 지연 항목</span>
+<span class="text-body-lg font-bold text-on-error-container">영어 단어 50개 암기</span>
+</div>
+<div class="text-right">
+<span class="text-label-md font-label-md text-on-error-container opacity-80">미룬 횟수</span>
+<div class="text-headline-lg font-bold text-on-error-container">8회</div>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-stack-md">
+                해당 일정은 주로 <span class="font-bold text-error">금요일 오후</span>에 미루는 경향이 있습니다. 시간을 재조정해보는 것은 어떨까요?
+            </p>
+</section>
+<!-- Motivator Section -->
+<section class="bg-primary-container dark:bg-on-primary-fixed-variant rounded-xl p-stack-lg text-on-primary-container dark:text-on-primary-fixed flex items-center justify-between">
+<div class="space-y-stack-sm">
+<h4 class="text-title-md font-title-md">기록 경신까지 5개!</h4>
+<p class="text-body-md font-body-md opacity-90">지난 주보다 페이스가 좋습니다.</p>
+</div>
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</section><section class="bg-white rounded-xl border border-outline-variant p-stack-lg shadow-sm space-y-stack-lg">
+<h3 class="text-title-md font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">report_problem</span>
+    실패 항목 분석
+  </h3>
+<!-- 반복 실패 항목 -->
+<div>
+<h4 class="text-label-md font-label-md text-outline mb-stack-md uppercase">반복 실패 항목 (최근 4주)</h4>
+<ul class="space-y-stack-sm">
+<li class="flex justify-between items-center bg-surface-container-low rounded-lg p-stack-md">
+<span class="text-body-md font-medium text-on-surface">영어 단어 50개 암기</span>
+<span class="text-body-md font-bold text-error">12회</span>
+</li>
+<li class="flex justify-between items-center bg-surface-container-low rounded-lg p-stack-md">
+<span class="text-body-md font-medium text-on-surface">아침 운동 (조깅)</span>
+<span class="text-body-md font-bold text-error">8회</span>
+</li>
+<li class="flex justify-between items-center bg-surface-container-low rounded-lg p-stack-md">
+<span class="text-body-md font-medium text-on-surface">독서 30분</span>
+<span class="text-body-md font-bold text-error">5회</span>
+</li>
+</ul>
+</div>
+<!-- 실패 원인 분석 (Visualized as tags/cloud for simplicity in HTML) -->
+<div>
+<h4 class="text-label-md font-label-md text-outline mb-stack-md uppercase">실패 원인 분석</h4>
+<div class="flex flex-wrap gap-base">
+<span class="px-stack-md py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full text-label-md">시간 부족 (45%)</span>
+<span class="px-stack-md py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-label-md">의지 부족 (25%)</span>
+<span class="px-stack-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md">난이도 높음 (20%)</span>
+<span class="px-stack-md py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-md">기타 (10%)</span>
+</div>
+</div>
+<!-- 개선 가이드 -->
+<div class="bg-primary-container/10 border border-primary/20 rounded-lg p-stack-md">
+<div class="flex items-center gap-base mb-1">
+<span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+<span class="text-label-md font-bold text-primary">AI 개선 가이드</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface">
+      영어 단어 암기는 주로 오후에 실패하네요. 집중력이 높은 <span class="font-bold text-primary">오전</span>으로 옮겨보는 건 어떨까요?
+    </p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<button class="fixed bottom-24 bg-primary text-on-primary shadow-lg flex items-center justify-center active:scale-90 transition-all duration-200 z-40 rounded-full w-16 h-16 right-6">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button><nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-container-padding pb-safe pt-stack-md bg-surface-container-lowest dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(0,0,0,0.04)] dark:shadow-none rounded-t-xl">
+<div class="flex-1 flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-stack-sm transition-all duration-200 active:scale-90 hover:bg-surface-container-high dark:hover:bg-surface-container-highest cursor-pointer">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-md font-label-md mt-1">Home</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-stack-sm transition-all duration-200 active:scale-90 hover:bg-surface-container-high dark:hover:bg-surface-container-highest cursor-pointer">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="text-label-md font-label-md mt-1">Calendar</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-on-primary-fixed rounded-xl py-stack-sm transition-all duration-200 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-label-md font-label-md mt-1">Stats</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant py-stack-sm transition-all duration-200 active:scale-90 hover:bg-surface-container-high dark:hover:bg-surface-container-highest cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md mt-1">Settings</span>
+</div>
+</nav>
+<script>
+        document.querySelectorAll('nav div').forEach(item => {
+            item.addEventListener('click', () => {
+                console.log('Navigating...');
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>카테고리별 알림 설정</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001849",
+                        "primary-container": "#0066ff",
+                        "background": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-fixed": "#ffdcbf",
+                        "on-tertiary-fixed": "#410001",
+                        "primary-fixed": "#dae1ff",
+                        "tertiary": "#b60009",
+                        "on-secondary-container": "#633700",
+                        "tertiary-container": "#de211c",
+                        "on-secondary-fixed-variant": "#6a3b00",
+                        "on-surface": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e7e8e9",
+                        "on-secondary-fixed": "#2d1600",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "error": "#ba1a1a",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#8c5000",
+                        "inverse-surface": "#2e3132",
+                        "inverse-primary": "#b3c5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-background": "#191c1d",
+                        "secondary-container": "#fe9400",
+                        "outline": "#727687",
+                        "secondary-fixed-dim": "#ffb874",
+                        "surface": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e1e3e4",
+                        "on-tertiary-container": "#fff6f4",
+                        "primary": "#0050cb",
+                        "outline-variant": "#c2c6d8",
+                        "surface-tint": "#0054d6",
+                        "tertiary-fixed": "#ffdad5",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-fixed-dim": "#b3c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "4px",
+                        "stack-lg": "24px",
+                        "margin-mobile": "20px",
+                        "stack-md": "12px",
+                        "base": "8px",
+                        "gutter": "12px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .segmented-control input:checked + label {
+            background-color: #0066ff;
+            color: #ffffff;
+        }
+        .card-accent-study { border-left: 4px solid #0050cb; }
+        .card-accent-assignment { border-left: 4px solid #fe9400; }
+        .card-accent-exercise { border-left: 4px solid #ba1a1a; }
+        .card-accent-others { border-left: 4px solid #727687; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-surface flex items-center px-margin-mobile h-16 shadow-sm">
+<button class="mr-4 text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">카테고리별 알림 설정</h1>
+</header>
+<main class="flex-1 px-margin-mobile pt-stack-lg flex flex-col gap-stack-lg">
+<!-- Intro Section -->
+<section class="flex flex-col gap-stack-sm">
+<h2 class="font-title-md text-title-md text-on-surface">알림 유형 개인화</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">각 학습 카테고리에 최적화된 알림 방식을 설정하여 집중력을 유지하세요.</p>
+</section>
+<!-- Category List -->
+<div class="flex flex-col gap-stack-md">
+<!-- Category: 공부 -->
+<div class="bg-surface-container-lowest rounded-xl p-container-padding shadow-sm card-accent-study flex flex-col gap-stack-md border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-primary" data-icon="menu_book">menu_book</span>
+<span class="font-title-md text-title-md">공부</span>
+</div>
+<span class="text-label-md font-label-md px-2 py-0.5 bg-primary-fixed text-on-primary-fixed rounded-full">학업 집중</span>
+</div>
+<div class="segmented-control grid grid-cols-3 gap-1 bg-surface-container rounded-lg p-1">
+<input checked="" class="hidden" id="study-alarm" name="study-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="study-alarm">알림</label>
+<input class="hidden" id="study-vibrate" name="study-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="study-vibrate">진동</label>
+<input class="hidden" id="study-silent" name="study-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="study-silent">무음</label>
+</div>
+</div>
+<!-- Category: 과제 -->
+<div class="bg-surface-container-lowest rounded-xl p-container-padding shadow-sm card-accent-assignment flex flex-col gap-stack-md border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary" data-icon="assignment">assignment</span>
+<span class="font-title-md text-title-md">과제</span>
+</div>
+</div>
+<div class="segmented-control grid grid-cols-3 gap-1 bg-surface-container rounded-lg p-1">
+<input class="hidden" id="task-alarm" name="task-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="task-alarm">알림</label>
+<input checked="" class="hidden" id="task-vibrate" name="task-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="task-vibrate">진동</label>
+<input class="hidden" id="task-silent" name="task-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="task-silent">무음</label>
+</div>
+</div>
+<!-- Category: 운동 -->
+<div class="bg-surface-container-lowest rounded-xl p-container-padding shadow-sm card-accent-exercise flex flex-col gap-stack-md border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-tertiary" data-icon="fitness_center">fitness_center</span>
+<span class="font-title-md text-title-md">운동</span>
+</div>
+</div>
+<div class="segmented-control grid grid-cols-3 gap-1 bg-surface-container rounded-lg p-1">
+<input checked="" class="hidden" id="exercise-alarm" name="exercise-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="exercise-alarm">알림</label>
+<input class="hidden" id="exercise-vibrate" name="exercise-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="exercise-vibrate">진동</label>
+<input class="hidden" id="exercise-silent" name="exercise-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="exercise-silent">무음</label>
+</div>
+</div>
+<!-- Category: 기타 -->
+<div class="bg-surface-container-lowest rounded-xl p-container-padding shadow-sm card-accent-others flex flex-col gap-stack-md border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-outline" data-icon="more_horiz">more_horiz</span>
+<span class="font-title-md text-title-md">기타</span>
+</div>
+</div>
+<div class="segmented-control grid grid-cols-3 gap-1 bg-surface-container rounded-lg p-1">
+<input class="hidden" id="other-alarm" name="other-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="other-alarm">알림</label>
+<input class="hidden" id="other-vibrate" name="other-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="other-vibrate">진동</label>
+<input checked="" class="hidden" id="other-silent" name="other-notif" type="radio">
+<label class="flex items-center justify-center py-2 px-1 rounded-md cursor-pointer text-label-md font-label-md text-on-surface-variant transition-all" for="other-silent">무음</label>
+</div>
+</div>
+</div>
+</main>
+<!-- Fixed Bottom Action Area -->
+<div class="fixed bottom-0 left-0 w-full p-margin-mobile bg-gradient-to-t from-background via-background to-transparent z-50">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-title-md text-title-md shadow-lg active:scale-95 transition-transform duration-150 flex items-center justify-center gap-2" id="save-btn">
+            저장
+        </button>
+</div>
+<!-- Bottom Navigation Shell (Consistent with Shared Components) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest shadow-sm z-30 opacity-20 pointer-events-none">
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Calendar</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="equalizer">equalizer</span>
+<span class="font-label-md text-label-md">Stats</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</div>
+</nav>
+<script>
+        // Simple Interaction: Button Ripple/Scale feedback and Save toast mock
+        const saveBtn = document.getElementById('save-btn');
+        saveBtn.addEventListener('click', () => {
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> 처리 중...';
+            setTimeout(() => {
+                saveBtn.innerHTML = '저장 완료!';
+                saveBtn.classList.replace('bg-primary', 'bg-tertiary-container');
+                saveBtn.classList.add('text-on-tertiary-fixed-variant');
+                setTimeout(() => {
+                    saveBtn.innerHTML = '저장';
+                    saveBtn.classList.replace('bg-tertiary-container', 'bg-primary');
+                    saveBtn.classList.remove('text-on-tertiary-fixed-variant');
+                }, 2000);
+            }, 800);
+        });
+
+        // Toggle Visuals for Segmented Controls
+        const inputs = document.querySelectorAll('.segmented-control input');
+        inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                // The CSS handles the visual swap via :checked + label
+            });
+        });
+    </script>
+</body></html>

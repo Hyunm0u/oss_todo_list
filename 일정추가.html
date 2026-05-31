@@ -1,0 +1,838 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdad5",
+                    "tertiary-container": "#de211c",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-surface-variant": "#424656",
+                    "secondary": "#8c5000",
+                    "primary": "#0050cb",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-container": "#633700",
+                    "on-primary-fixed": "#001849",
+                    "primary-container": "#0066ff",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary": "#b60009",
+                    "outline-variant": "#c2c6d8",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9fa",
+                    "on-tertiary-fixed": "#410001",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "on-secondary-fixed-variant": "#6a3b00",
+                    "surface-dim": "#d9dadb",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-variant": "#e1e3e4",
+                    "surface-tint": "#0054d6",
+                    "secondary-container": "#fe9400",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae1ff",
+                    "secondary-fixed-dim": "#ffb874",
+                    "on-secondary-fixed": "#2d1600",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "outline": "#727687",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-bright": "#f8f9fa",
+                    "secondary-fixed": "#ffdcbf",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-error": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "on-background": "#191c1d",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container": "#edeeef",
+                    "on-tertiary-container": "#fff6f4",
+                    "surface-container-low": "#f3f4f5",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#191c1d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "base": "8px",
+                    "stack-md": "12px",
+                    "stack-sm": "4px",
+                    "container-padding": "16px",
+                    "stack-lg": "24px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "title-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f8f9fa;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .category-chip {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .category-chip.active {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .edit-trigger {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .active .edit-trigger {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .icon-choice.selected {
+            outline: 2px solid #0050cb;
+            background-color: rgba(0, 80, 203, 0.1);
+            color: #0050cb;
+        }
+        .color-choice.selected { 
+            outline: 3px solid #0050cb; 
+            outline-offset: 2px;
+            box-shadow: 0 0 10px rgba(0, 80, 203, 0.3);
+        }
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bottom-sheet.open {
+            transform: translateY(0);
+        }
+        .modal-animate-in {
+            animation: modalFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .time-wheel {
+            height: 200px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: y mandatory;
+        }
+        .time-wheel::-webkit-scrollbar {
+            display: none;
+        }
+        .time-item {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            scroll-snap-align: center;
+            transition: all 0.2s;
+            font-size: 18px;
+            color: #727687;
+        }
+        .time-item.active {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0050cb;
+            transform: scale(1.1);
+        }
+        .time-item.blur {
+            filter: blur(1px);
+            opacity: 0.5;
+        }
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        .calendar-day:hover:not(.empty) {
+            background-color: #f0f1f2;
+        }
+        .calendar-day.selected {
+            background-color: #0050cb !important;
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+        .calendar-day.today {
+            color: #0050cb;
+            font-weight: 700;
+            background-color: #0050cb11;
+        }
+        .calendar-day.empty {
+            cursor: default;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen overflow-x-hidden bg-background">
+<!-- Top Navigation Header -->
+<header class="bg-surface sticky top-0 z-40 flex justify-between items-center w-full px-margin-mobile h-16 transition-colors border-b border-outline-variant/10">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-lg transition-all active:scale-95">
+<span class="font-title-md text-title-md">취소</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">일정 추가</h1>
+<button class="text-primary font-bold hover:bg-primary-container/10 p-2 px-4 rounded-lg transition-all active:scale-95">
+<span class="font-title-md text-title-md">완료</span>
+</button>
+</header>
+<main class="flex-grow px-margin-mobile py-stack-lg max-w-2xl mx-auto w-full pb-safe">
+<div class="space-y-stack-lg">
+<!-- Title Input Section -->
+<section class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">일정 제목</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-2xl px-container-padding py-4 font-body-lg text-body-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-outline" placeholder="할 일을 입력하세요" type="text">
+</div>
+</section>
+<!-- Category Selection Section -->
+<section class="space-y-stack-md">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">카테고리</label>
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-gutter" id="categoryContainer">
+<button class="category-chip group flex flex-col items-center justify-center p-4 rounded-2xl border transition-all relative" data-color="#0050cb" data-icon="fitness_center" data-id="1" data-name="운동">
+<span class="material-symbols-outlined mb-2 text-3xl">fitness_center</span>
+<span class="font-label-md text-label-md">운동</span>
+<div class="edit-trigger absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg border border-outline-variant/20 z-10">
+<span class="material-symbols-outlined text-primary text-[16px]">edit</span>
+</div>
+</button>
+<button class="category-chip group flex flex-col items-center justify-center p-4 rounded-2xl border transition-all relative" data-color="#fe9400" data-icon="menu_book" data-id="2" data-name="공부">
+<span class="material-symbols-outlined mb-2 text-3xl">menu_book</span>
+<span class="font-label-md text-label-md">공부</span>
+<div class="edit-trigger absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg border border-outline-variant/20 z-10">
+<span class="material-symbols-outlined text-primary text-[16px]">edit</span>
+</div>
+</button>
+<button class="category-chip group flex flex-col items-center justify-center p-4 rounded-2xl border transition-all relative" data-color="#b60009" data-icon="groups" data-id="3" data-name="동아리">
+<span class="material-symbols-outlined mb-2 text-3xl">groups</span>
+<span class="font-label-md text-label-md">동아리</span>
+<div class="edit-trigger absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg border border-outline-variant/20 z-10">
+<span class="material-symbols-outlined text-primary text-[16px]">edit</span>
+</div>
+</button>
+<button class="category-chip active group flex flex-col items-center justify-center p-4 rounded-2xl border transition-all relative" data-color="#727687" data-icon="more_horiz" data-id="5" data-name="기타">
+<span class="material-symbols-outlined mb-2 text-3xl">more_horiz</span>
+<span class="font-label-md text-label-md">기타</span>
+<div class="edit-trigger absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg border border-outline-variant/20 z-10">
+<span class="material-symbols-outlined text-primary text-[16px]">edit</span>
+</div>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-dashed border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group order-last" id="addCategoryBtn">
+<span class="material-symbols-outlined text-outline group-hover:text-primary mb-2 text-3xl">add</span>
+<span class="font-label-md text-label-md text-outline group-hover:text-primary">추가</span>
+</button>
+</div>
+</section>
+<!-- Date & Time Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-container-padding space-y-stack-lg relative overflow-visible">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+<span class="font-title-md text-title-md text-on-surface">기한 및 시간 설정</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="font-label-md text-label-md text-outline">D-Day</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="space-y-4">
+<div class="relative w-full">
+<button class="w-full bg-surface-container-low border-none rounded-xl px-container-padding py-3 font-body-md text-body-md text-on-surface flex justify-between items-center transition-all hover:bg-surface-container-high active:scale-[0.98]" id="datePickerTrigger">
+<span id="selectedDateText">2024년 10월 24일</span>
+<span class="material-symbols-outlined text-outline">calendar_today</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-1">
+<span class="text-[11px] font-bold text-outline-variant uppercase tracking-wider ml-1">시작 시간</span>
+<div class="bg-surface-container-low rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-surface-container-high transition-all border border-transparent active:border-primary/30" onclick="openTimePicker('start')">
+<span class="font-title-md text-on-surface" id="startTimeText">09:00</span>
+<span class="material-symbols-outlined text-outline text-xl">schedule</span>
+</div>
+</div>
+<div class="space-y-1">
+<span class="text-[11px] font-bold text-outline-variant uppercase tracking-wider ml-1">종료 시간</span>
+<div class="bg-surface-container-low rounded-xl px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-surface-container-high transition-all border border-transparent active:border-primary/30" id="endTimeContainer" onclick="openTimePicker('end')">
+<span class="font-title-md text-on-surface" id="endTimeText">10:00</span>
+<span class="material-symbols-outlined text-outline text-xl">schedule</span>
+</div>
+</div>
+</div>
+<div class="hidden flex items-center gap-2 px-3 py-2 bg-error-container/20 rounded-lg" id="timeWarning">
+<span class="material-symbols-outlined text-error text-[18px]">warning</span>
+<span class="text-error font-label-md text-label-md">종료 시간이 시작 시간보다 빨라요.</span>
+</div>
+<div class="flex items-center gap-base px-2 py-1 bg-primary-container/10 rounded-lg self-start">
+<span class="font-label-md text-label-md text-primary font-bold" id="dDayDisplay">D-Day</span>
+<span class="font-label-md text-label-md text-on-surface-variant italic" id="dDayLabel">기한까지 남은 시간</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Calendar Modal Overlay -->
+<div class="fixed inset-0 bg-black/60 z-[90] hidden transition-opacity duration-300 backdrop-blur-sm flex items-center justify-center p-margin-mobile opacity-0" id="calendarModalOverlay" onclick="handleBackdropClick(event, 'calendarModalOverlay', closeCalendarModal)">
+<div class="bg-surface rounded-[24px] w-full max-w-sm overflow-hidden modal-animate-in shadow-2xl flex flex-col" id="calendarModal" onclick="event.stopPropagation()">
+<div class="p-6 pb-4 flex items-center justify-between border-b border-outline-variant/10">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold" id="currentMonthYear">2024년 10월</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all" onclick="changeMonth(-1)">
+<span class="material-symbols-outlined text-outline">chevron_left</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all" onclick="changeMonth(1)">
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="grid grid-cols-7 gap-1 text-center font-label-sm text-outline-variant mb-4">
+<div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+</div>
+<div class="calendar-grid min-h-[240px]" id="calendarGrid"></div>
+</div>
+<div class="p-6 pt-0 grid grid-cols-2 gap-3">
+<button class="py-3.5 rounded-2xl border border-outline-variant font-title-md text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" onclick="closeCalendarModal()">취소</button>
+<button class="py-3.5 rounded-2xl bg-primary text-on-primary font-title-md shadow-lg shadow-primary/20 hover:brightness-110 transition-all active:scale-95" onclick="confirmDate()">선택 완료</button>
+</div>
+</div>
+</div>
+<!-- Time Picker Modal -->
+<div class="fixed inset-0 bg-black/40 z-[90] hidden transition-opacity duration-300 backdrop-blur-[2px] opacity-0" id="timePickerOverlay" onclick="handleBackdropClick(event, 'timePickerOverlay', closeTimePicker)">
+<div class="fixed bottom-0 left-0 right-0 z-[91] glass-modal rounded-t-[24px] p-6 bottom-sheet border-t border-white/40 shadow-2xl max-w-2xl mx-auto pb-safe" id="timePickerSheet" onclick="event.stopPropagation()">
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full mx-auto mb-6"></div>
+<div class="text-center mb-6">
+<h3 class="font-headline-lg text-on-surface" id="pickerTitle">시간 설정</h3>
+</div>
+<div class="flex flex-wrap gap-2 mb-8 justify-center">
+<button class="px-4 py-2 rounded-full bg-white/50 border border-outline-variant/20 font-label-md text-label-md text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-all" onclick="setQuickTime(8, 0)">☀️ 아침</button>
+<button class="px-4 py-2 rounded-full bg-white/50 border border-outline-variant/20 font-label-md text-label-md text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-all" onclick="setQuickTime(18, 0)">🏋️ 운동</button>
+<button class="px-4 py-2 rounded-full bg-white/50 border border-outline-variant/20 font-label-md text-label-md text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-all" onclick="setQuickTime(19, 0)">📚 공부</button>
+<button class="px-4 py-2 rounded-full bg-white/50 border border-outline-variant/20 font-label-md text-label-md text-on-surface-variant hover:bg-primary/10 hover:text-primary transition-all" onclick="setQuickTime(22, 0)">🌙 밤</button>
+</div>
+<div class="flex justify-center items-center gap-4 h-[200px] relative">
+<div class="absolute left-1/2 -translate-x-1/2 w-48 h-10 bg-primary/5 rounded-lg border-y border-primary/10 -z-10"></div>
+<div class="time-wheel w-16" id="hourWheel" onscroll="handleWheelScroll('hour')">
+<div class="h-20"></div><div class="h-20"></div>
+</div>
+<span class="font-headline-xl text-primary mb-2">:</span>
+<div class="time-wheel w-16" id="minuteWheel" onscroll="handleWheelScroll('minute')">
+<div class="h-20"></div><div class="h-20"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-8">
+<button class="py-4 rounded-2xl bg-surface-container-high font-title-md text-on-surface-variant active:scale-95 transition-all" onclick="closeTimePicker()">취소</button>
+<button class="py-4 rounded-2xl bg-primary text-on-primary font-title-md shadow-lg shadow-primary/20 active:scale-95 transition-all" onclick="confirmTime()">선택 완료</button>
+</div>
+</div>
+</div>
+<!-- Category Edit Bottom Sheet -->
+<div class="fixed inset-0 bg-black/60 z-[80] hidden transition-opacity duration-300 opacity-0" id="categorySheetOverlay" onclick="handleBackdropClick(event, 'categorySheetOverlay', closeCategorySheet)">
+<div class="fixed bottom-0 left-0 right-0 z-[81] bg-surface rounded-t-3xl p-6 bottom-sheet border-t border-outline-variant shadow-2xl max-w-2xl mx-auto max-h-[90vh] overflow-y-auto pb-safe" id="categorySheet" onclick="event.stopPropagation()">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-6"></div>
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-lg text-on-surface" id="sheetTitle">카테고리 수정</h3>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all" onclick="closeCategorySheet()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">카테고리 이름</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-2xl px-4 py-4 font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" id="categoryNameInput" placeholder="이름을 입력하세요" type="text">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">아이콘 선택</label>
+<div class="grid grid-cols-6 gap-3 py-2" id="iconSelectionGrid">
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="school"><span class="material-symbols-outlined">school</span></button>
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="fitness_center"><span class="material-symbols-outlined">fitness_center</span></button>
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="menu_book"><span class="material-symbols-outlined">menu_book</span></button>
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="groups"><span class="material-symbols-outlined">groups</span></button>
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="work"><span class="material-symbols-outlined">work</span></button>
+<button class="icon-choice h-12 w-12 flex items-center justify-center rounded-2xl bg-surface-container-high text-on-surface transition-all active:scale-90" data-icon="assignment"><span class="material-symbols-outlined">assignment</span></button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">색상 선택</label>
+<div class="grid grid-cols-8 gap-3 py-2" id="colorSelectionGrid">
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#0050cb" style="background-color: #0050cb;"></button>
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#fe9400" style="background-color: #fe9400;"></button>
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#ba1a1a" style="background-color: #ba1a1a;"></button>
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#2e7d32" style="background-color: #2e7d32;"></button>
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#673ab7" style="background-color: #673ab7;"></button>
+<button class="color-choice h-8 w-8 rounded-full transition-all active:scale-90" data-color="#727687" style="background-color: #727687;"></button>
+</div>
+</div>
+<div class="flex flex-col gap-3 pt-4 pb-6">
+<button class="w-full bg-error/10 text-error py-4 rounded-2xl font-title-md text-title-md hover:bg-error/20 transition-all active:scale-95" id="deleteCategoryBtn">삭제하기</button>
+<button class="w-full bg-primary text-on-primary py-4 rounded-2xl font-title-md text-title-md hover:brightness-110 shadow-lg shadow-primary/20 transition-all active:scale-95" id="submitCategoryBtn">수정</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Delete Modal -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center px-margin-mobile hidden transition-opacity duration-300 opacity-0" id="confirmDeleteModal" onclick="handleBackdropClick(event, 'confirmDeleteModal', closeDeleteModal)">
+<div class="bg-surface rounded-3xl p-6 w-full max-w-[320px] space-y-6 shadow-2xl modal-animate-in" onclick="event.stopPropagation()">
+<div class="space-y-2 text-center">
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold">정말 이 카테고리를 삭제할까요?</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">해당 카테고리를 사용하는 일정은 유지되지만 카테고리는 제거됩니다.</p>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-3.5 rounded-2xl border border-outline-variant font-title-md text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-95" id="cancelDeleteBtn">취소</button>
+<button class="py-3.5 rounded-2xl bg-error text-on-error font-title-md shadow-lg shadow-error/20 hover:brightness-110 transition-all active:scale-95" id="confirmDeleteBtn">삭제</button>
+</div>
+</div>
+</div>
+<script>
+    const state = {
+        mode: 'create',
+        currentId: null,
+        selectedIcon: '',
+        selectedColor: '',
+        startTime: { h: 9, m: 0 },
+        endTime: { h: 10, m: 0 },
+        selectedDate: new Date(),
+        tempSelectedDate: new Date(),
+        viewDate: new Date(),
+        activePickerMode: null,
+        categories: [
+            { id: 1, name: '운동', icon: 'fitness_center', color: '#0050cb' },
+            { id: 2, name: '공부', icon: 'menu_book', color: '#fe9400' },
+            { id: 3, name: '동아리', icon: 'groups', color: '#b60009' },
+            { id: 5, name: '기타', icon: 'more_horiz', color: '#727687' }
+        ]
+    };
+
+    // Generic backdrop click handler
+    function handleBackdropClick(e, overlayId, closeFn) {
+        if (e.target.id === overlayId) {
+            closeFn();
+        }
+    }
+
+    // --- Calendar Logic ---
+    function renderCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        const monthYearText = document.getElementById('currentMonthYear');
+        const year = state.viewDate.getFullYear();
+        const month = state.viewDate.getMonth();
+        monthYearText.textContent = `${year}년 ${month + 1}월`;
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+        grid.innerHTML = '';
+        for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'calendar-day empty';
+            grid.appendChild(empty);
+        }
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        for (let day = 1; day <= lastDate; day++) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            dayEl.textContent = day;
+            const curDate = new Date(year, month, day);
+            if (curDate.getTime() === today.getTime()) dayEl.classList.add('today');
+            if (curDate.getFullYear() === state.tempSelectedDate.getFullYear() &&
+                curDate.getMonth() === state.tempSelectedDate.getMonth() &&
+                curDate.getDate() === state.tempSelectedDate.getDate()) {
+                dayEl.classList.add('selected');
+            }
+            dayEl.onclick = () => {
+                state.tempSelectedDate = new Date(year, month, day);
+                renderCalendar();
+            };
+            grid.appendChild(dayEl);
+        }
+    }
+
+    function changeMonth(delta) {
+        state.viewDate.setMonth(state.viewDate.getMonth() + delta);
+        renderCalendar();
+    }
+
+    function openCalendarModal() {
+        state.tempSelectedDate = new Date(state.selectedDate);
+        state.viewDate = new Date(state.selectedDate);
+        const overlay = document.getElementById('calendarModalOverlay');
+        overlay.classList.remove('hidden');
+        renderCalendar();
+        setTimeout(() => overlay.classList.add('opacity-100'), 10);
+    }
+
+    function closeCalendarModal() {
+        const overlay = document.getElementById('calendarModalOverlay');
+        overlay.classList.remove('opacity-100');
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+    }
+
+    function confirmDate() {
+        state.selectedDate = new Date(state.tempSelectedDate);
+        updateDateDisplay();
+        closeCalendarModal();
+    }
+
+    function updateDateDisplay() {
+        const y = state.selectedDate.getFullYear();
+        const m = state.selectedDate.getMonth() + 1;
+        const d = state.selectedDate.getDate();
+        document.getElementById('selectedDateText').textContent = `${y}년 ${m}월 ${d}일`;
+        updateDDay();
+    }
+
+    function updateDDay() {
+        const now = new Date();
+        now.setHours(0,0,0,0);
+        const target = new Date(state.selectedDate);
+        target.setHours(0,0,0,0);
+        const diffTime = target - now;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const display = document.getElementById('dDayDisplay');
+        if (diffDays === 0) display.textContent = 'D-Day';
+        else if (diffDays > 0) display.textContent = `D-${diffDays}`;
+        else display.textContent = `D+${Math.abs(diffDays)}`;
+    }
+
+    // --- Time Picker Logic ---
+    const hourWheel = document.getElementById('hourWheel');
+    const minuteWheel = document.getElementById('minuteWheel');
+    const timePickerOverlay = document.getElementById('timePickerOverlay');
+    const timePickerSheet = document.getElementById('timePickerSheet');
+
+    function initTimeWheels() {
+        let hourHtml = '<div class="h-20"></div>';
+        for(let i=0; i<24; i++) {
+            const val = i.toString().padStart(2, '0');
+            hourHtml += `<div class="time-item" data-value="${i}">${val}</div>`;
+        }
+        hourHtml += '<div class="h-20"></div>';
+        hourWheel.innerHTML = hourHtml;
+        let minuteHtml = '<div class="h-20"></div>';
+        for(let i=0; i<60; i += 5) {
+            const val = i.toString().padStart(2, '0');
+            minuteHtml += `<div class="time-item" data-value="${i}">${val}</div>`;
+        }
+        minuteHtml += '<div class="h-20"></div>';
+        minuteWheel.innerHTML = minuteHtml;
+    }
+
+    function openTimePicker(mode) {
+        state.activePickerMode = mode;
+        document.getElementById('pickerTitle').textContent = mode === 'start' ? '시작 시간 설정' : '종료 시간 설정';
+        timePickerOverlay.classList.remove('hidden');
+        setTimeout(() => {
+            timePickerOverlay.classList.add('opacity-100');
+            timePickerSheet.classList.add('open');
+        }, 10);
+        const initialTime = mode === 'start' ? state.startTime : state.endTime;
+        scrollToValue('hour', initialTime.h);
+        scrollToValue('minute', initialTime.m);
+        updateWheelVisuals();
+    }
+
+    function closeTimePicker() {
+        timePickerSheet.classList.remove('open');
+        timePickerOverlay.classList.remove('opacity-100');
+        setTimeout(() => timePickerOverlay.classList.add('hidden'), 400);
+    }
+
+    function scrollToValue(wheelType, value) {
+        const wheel = wheelType === 'hour' ? hourWheel : minuteWheel;
+        const items = wheel.querySelectorAll('.time-item');
+        let target = 0;
+        items.forEach((item, index) => {
+            if(parseInt(item.dataset.value) === value) target = index;
+        });
+        wheel.scrollTop = target * 40;
+    }
+
+    function handleWheelScroll(wheelType) {
+        updateWheelVisuals();
+    }
+
+    function updateWheelVisuals() {
+        [hourWheel, minuteWheel].forEach(wheel => {
+            const scrollTop = wheel.scrollTop;
+            const activeIndex = Math.round(scrollTop / 40);
+            const items = wheel.querySelectorAll('.time-item');
+            items.forEach((item, index) => {
+                item.classList.remove('active', 'blur');
+                const diff = Math.abs(index - activeIndex);
+                if (diff === 0) item.classList.add('active');
+                else if (diff === 1) item.classList.add('blur');
+            });
+        });
+    }
+
+    function confirmTime() {
+        const hItems = hourWheel.querySelectorAll('.time-item');
+        const hIndex = Math.round(hourWheel.scrollTop / 40);
+        const h = parseInt(hItems[hIndex]?.dataset.value || 0);
+        const mItems = minuteWheel.querySelectorAll('.time-item');
+        const mIndex = Math.round(minuteWheel.scrollTop / 40);
+        const m = parseInt(mItems[mIndex]?.dataset.value || 0);
+        if (state.activePickerMode === 'start') {
+            state.startTime = { h, m };
+            document.getElementById('startTimeText').textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        } else {
+            state.endTime = { h, m };
+            document.getElementById('endTimeText').textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        }
+        validateTimes();
+        closeTimePicker();
+    }
+
+    function setQuickTime(h, m) {
+        scrollToValue('hour', h);
+        scrollToValue('minute', m);
+        updateWheelVisuals();
+    }
+
+    function validateTimes() {
+        const startTotal = state.startTime.h * 60 + state.startTime.m;
+        const endTotal = state.endTime.h * 60 + state.endTime.m;
+        const warning = document.getElementById('timeWarning');
+        const endContainer = document.getElementById('endTimeContainer');
+        if (endTotal <= startTotal) {
+            warning.classList.remove('hidden');
+            endContainer.classList.add('border-error/20');
+            endContainer.classList.remove('border-transparent');
+        } else {
+            warning.classList.add('hidden');
+            endContainer.classList.remove('border-error/20');
+            endContainer.classList.add('border-transparent');
+        }
+    }
+
+    // --- Category Logic ---
+    const categoryOverlay = document.getElementById('categorySheetOverlay');
+    const categorySheet = document.getElementById('categorySheet');
+    const addBtn = document.getElementById('addCategoryBtn');
+    const submitBtn = document.getElementById('submitCategoryBtn');
+    const deleteBtn = document.getElementById('deleteCategoryBtn');
+    const nameInput = document.getElementById('categoryNameInput');
+    const container = document.getElementById('categoryContainer');
+    const iconChoices = document.querySelectorAll('.icon-choice');
+    const colorChoices = document.querySelectorAll('.color-choice');
+
+    function openCategorySheet(mode, categoryId = null) {
+        state.mode = mode;
+        state.currentId = categoryId;
+        categoryOverlay.classList.remove('hidden');
+        setTimeout(() => {
+            categoryOverlay.classList.add('opacity-100');
+            categorySheet.classList.add('open');
+        }, 10);
+        if (mode === 'edit') {
+            const cat = state.categories.find(c => c.id === parseInt(categoryId));
+            document.getElementById('sheetTitle').textContent = '카테고리 수정';
+            nameInput.value = cat.name;
+            deleteBtn.classList.remove('hidden');
+            submitBtn.textContent = '수정';
+            selectIcon(cat.icon);
+            selectColor(cat.color);
+        } else {
+            document.getElementById('sheetTitle').textContent = '카테고리 추가';
+            nameInput.value = '';
+            deleteBtn.classList.add('hidden');
+            submitBtn.textContent = '추가 완료';
+            resetSelection();
+        }
+    }
+
+    function closeCategorySheet() {
+        categorySheet.classList.remove('open');
+        categoryOverlay.classList.remove('opacity-100');
+        setTimeout(() => categoryOverlay.classList.add('hidden'), 400);
+    }
+
+    function selectIcon(iconName) {
+        state.selectedIcon = iconName;
+        iconChoices.forEach(btn => btn.classList.toggle('selected', btn.dataset.icon === iconName));
+    }
+
+    function selectColor(colorCode) {
+        state.selectedColor = colorCode;
+        colorChoices.forEach(btn => btn.classList.toggle('selected', btn.dataset.color === colorCode));
+    }
+
+    function resetSelection() {
+        state.selectedIcon = '';
+        state.selectedColor = '';
+        iconChoices.forEach(btn => btn.classList.remove('selected'));
+        colorChoices.forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function updateCategoryStyles(btn, cat) {
+        const isActive = btn.classList.contains('active');
+        btn.style.borderColor = isActive ? cat.color : `${cat.color}33`;
+        btn.style.backgroundColor = isActive ? `${cat.color}22` : `${cat.color}11`;
+        btn.innerHTML = `
+            <span class="material-symbols-outlined mb-2 text-3xl" style="color: ${cat.color}">${cat.icon}</span>
+            <span class="font-label-md text-label-md" style="color: ${cat.color}">${cat.name}</span>
+            <div class="edit-trigger absolute -top-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg border border-outline-variant/20 z-10">
+                <span class="material-symbols-outlined text-primary text-[16px]">edit</span>
+            </div>
+        `;
+    }
+
+    addBtn.addEventListener('click', () => openCategorySheet('create'));
+
+    iconChoices.forEach(btn => btn.addEventListener('click', () => selectIcon(btn.dataset.icon)));
+    colorChoices.forEach(btn => btn.addEventListener('click', () => selectColor(btn.dataset.color)));
+
+    container.addEventListener('click', (e) => {
+        const editBtn = e.target.closest('.edit-trigger');
+        const chip = e.target.closest('.category-chip');
+        if (editBtn) {
+            e.stopPropagation();
+            openCategorySheet('edit', editBtn.closest('.category-chip').dataset.id);
+            return;
+        }
+        if (chip) {
+            document.querySelectorAll('.category-chip').forEach(c => {
+                c.classList.remove('active');
+                const color = c.dataset.color;
+                c.style.backgroundColor = `${color}11`;
+                c.style.borderColor = `${color}33`;
+                const iconSpan = c.querySelector('.material-symbols-outlined:not(.text-primary)');
+                const nameSpan = c.querySelector('.font-label-md');
+                if(iconSpan) iconSpan.style.color = color;
+                if(nameSpan) nameSpan.style.color = color;
+            });
+            chip.classList.add('active');
+            const activeColor = chip.dataset.color;
+            chip.style.backgroundColor = `${activeColor}22`;
+            chip.style.borderColor = activeColor;
+        }
+    });
+
+    submitBtn.addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        if (!name || !state.selectedIcon || !state.selectedColor) return;
+        if (state.mode === 'create') {
+            const newCat = { id: Date.now(), name, icon: state.selectedIcon, color: state.selectedColor };
+            state.categories.push(newCat);
+            const btn = document.createElement('button');
+            btn.className = `category-chip group flex flex-col items-center justify-center p-4 rounded-2xl border transition-all relative`;
+            btn.dataset.id = newCat.id;
+            btn.dataset.name = newCat.name;
+            btn.dataset.icon = newCat.icon;
+            btn.dataset.color = newCat.color;
+            updateCategoryStyles(btn, newCat);
+            container.insertBefore(btn, addBtn);
+        } else {
+            const cat = state.categories.find(c => c.id === parseInt(state.currentId));
+            Object.assign(cat, { name, icon: state.selectedIcon, color: state.selectedColor });
+            const btn = container.querySelector(`[data-id="${cat.id}"]`);
+            btn.dataset.name = cat.name;
+            btn.dataset.icon = cat.icon;
+            btn.dataset.color = cat.color;
+            updateCategoryStyles(btn, cat);
+        }
+        closeCategorySheet();
+    });
+
+    // --- Delete Modal Logic ---
+    const deleteModalOverlay = document.getElementById('confirmDeleteModal');
+    
+    function openDeleteModal() {
+        deleteModalOverlay.classList.remove('hidden');
+        setTimeout(() => deleteModalOverlay.classList.add('opacity-100'), 10);
+    }
+
+    function closeDeleteModal() {
+        deleteModalOverlay.classList.remove('opacity-100');
+        setTimeout(() => deleteModalOverlay.classList.add('hidden'), 300);
+    }
+
+    deleteBtn.addEventListener('click', openDeleteModal);
+    document.getElementById('cancelDeleteBtn').addEventListener('click', closeDeleteModal);
+    document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+        const catId = parseInt(state.currentId);
+        state.categories = state.categories.filter(c => c.id !== catId);
+        const btn = container.querySelector(`[data-id="${catId}"]`);
+        if (btn) btn.remove();
+        closeDeleteModal();
+        closeCategorySheet();
+    });
+
+    document.getElementById('datePickerTrigger').addEventListener('click', openCalendarModal);
+
+    function init() {
+        initTimeWheels();
+        updateDateDisplay();
+        document.querySelectorAll('.category-chip[data-id]').forEach(chip => {
+            updateCategoryStyles(chip, {
+                id: chip.dataset.id,
+                name: chip.dataset.name,
+                icon: chip.dataset.icon,
+                color: chip.dataset.color
+            });
+        });
+        validateTimes();
+    }
+
+    init();
+</script>
+</body></html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#fff6f4",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-primary": "#b3c5ff",
+                    "outline-variant": "#c2c6d8",
+                    "secondary": "#8c5000",
+                    "on-secondary-fixed-variant": "#6a3b00",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "on-background": "#191c1d",
+                    "on-surface-variant": "#424656",
+                    "surface-bright": "#f8f9fa",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary-container": "#f8f7ff",
+                    "background": "#f8f9fa",
+                    "surface-dim": "#d9dadb",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#b60009",
+                    "secondary-container": "#fe9400",
+                    "on-tertiary-fixed": "#410001",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdad5",
+                    "outline": "#727687",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed": "#ffdcbf",
+                    "on-secondary-container": "#633700",
+                    "inverse-surface": "#2e3132",
+                    "surface-container": "#edeeef",
+                    "surface-variant": "#e1e3e4",
+                    "primary": "#0066ff",
+                    "on-secondary-fixed": "#2d1600",
+                    "primary-fixed": "#dae1ff",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "surface": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#de211c",
+                    "surface-tint": "#0054d6",
+                    "surface-container-high": "#e7e8e9",
+                    "secondary-fixed-dim": "#ffb874",
+                    "primary-container": "#0066ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "4px",
+                    "margin-mobile": "20px",
+                    "stack-lg": "24px",
+                    "container-padding": "16px",
+                    "base": "8px",
+                    "stack-md": "12px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "title-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f8f9fa;
+            min-height: max(884px, 100dvh);
+        }
+        .transition-all-custom {
+            transition: all 0.3s ease-in-out;
+        }
+        .modal-enter { opacity: 0; transform: scale(0.95); }
+        .modal-enter-active { opacity: 1; transform: scale(1); transition: all 200ms ease-out; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top AppBar -->
+<header class="w-full top-0 sticky z-40 bg-background flex justify-between items-center px-margin-mobile py-base">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="Student Profile Photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdJiGiX_C_DTUgxUzHF2kF6ar0Mn06hDyZ-kmjb3QFG2Oo4GjZO3jWHL8wpuRfP50yLeKxQKvYuC0D14PwG2UKXdV1u4V0pyAWKMGxPjUo3T7P5EcPvYKab7sn041bgtrmthNZlGE6TbbDVv43ndh0ccoMqmFRCTsq5NYzyitLUOLnrSTKvftLW4JRfgh7IUz8tZoA_sxAGlrkyQ09wqsoJwb9c6ccu5ffYjUmW0EPi1dHpOkyWHOlQHp1lBprjvivVUBtVbjIr1w"/>
+</div>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary">캘린더</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile space-y-stack-lg">
+<!-- Monthly Grid View Mini -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md border border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center mb-stack-md">
+<button class="flex items-center gap-1 text-title-md font-title-md text-on-surface hover:bg-surface-container-high px-2 py-1 rounded-lg transition-colors" id="open-selector">
+<span id="current-month-display">2024년 5월</span>
+<span class="material-symbols-outlined text-[18px]">arrow_drop_down</span>
+</button>
+<div class="flex gap-stack-sm">
+<button class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high rounded-full p-1 transition-colors" id="prev-month">chevron_left</button>
+<button class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-high rounded-full p-1 transition-colors" id="next-month">chevron_right</button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-y-2 text-center" id="monthly-grid">
+<!-- Grid Content is dynamically generated -->
+</div>
+</section>
+<!-- Weekly Date Picker -->
+<section class="overflow-x-auto hide-scrollbar flex gap-stack-md py-stack-sm" id="weekly-picker">
+<!-- Weekly items are dynamically generated -->
+</section>
+<!-- Tasks for Selected Day -->
+<section class="space-y-stack-md">
+<div class="flex justify-between items-center">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface" id="schedule-title">5월 10일의 일정</h2>
+<span class="text-label-md font-label-md text-primary bg-primary-fixed px-base py-1 rounded-pill" id="task-count">2개 남음</span>
+</div>
+<div class="space-y-stack-md transition-all-custom" id="schedule-list">
+<!-- Dynamic content will be injected here -->
+</div>
+</section>
+<!-- Recurring Suggestions -->
+<section class="space-y-stack-md pb-8">
+<h2 class="text-title-md font-title-md text-on-surface">반복 일정 추천</h2>
+<div class="bg-primary-container/10 border-2 border-dashed border-primary/20 rounded-xl p-stack-md flex items-center gap-stack-md relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex flex-col flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm bg-primary-fixed text-on-primary-fixed-variant px-2 py-0.5 rounded-pill">학습</span>
+</div>
+<h3 class="text-body-lg font-title-md text-on-surface">전공 서적 독서 (경제학 원론)</h3>
+<p class="text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">book</span> 14:00 ~ 16:00
+                </p>
+</div>
+<div class="w-6 h-6 border-2 border-outline-variant rounded-full flex items-center justify-center group-active:scale-90 transition-transform"></div>
+</div>
+</section>
+</main>
+<!-- Date Selector Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200" id="selector-modal">
+<div class="bg-surface-container-lowest w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-200" id="modal-content">
+<div class="p-stack-lg border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="text-title-md font-title-md text-on-surface">날짜 선택</h3>
+<button class="material-symbols-outlined text-on-surface-variant" id="close-selector">close</button>
+</div>
+<div class="p-stack-lg space-y-stack-lg max-h-[60vh] overflow-y-auto">
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-3 uppercase tracking-wider">연도</p>
+<div class="grid grid-cols-3 gap-2" id="year-grid">
+<!-- Year buttons injected here -->
+</div>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-3 uppercase tracking-wider">월</p>
+<div class="grid grid-cols-4 gap-2" id="month-grid">
+<!-- Month buttons injected here -->
+</div>
+</div>
+</div>
+<div class="p-stack-md bg-surface-container-low flex justify-end gap-2">
+<button class="px-stack-lg py-2 text-primary font-bold hover:bg-primary/5 rounded-lg" id="modal-cancel">취소</button>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-30 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-container-padding pb-safe pt-stack-md bg-surface-container-lowest shadow-[0px_-4px_12px_rgba(0,0,0,0.04)] rounded-t-xl">
+<button class="flex-1 flex flex-col items-center justify-center text-on-surface-variant px-stack-md py-stack-sm hover:bg-surface-container-high active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-md font-label-md">Home</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-stack-md py-stack-sm active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-label-md font-label-md">Calendar</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center text-on-surface-variant px-stack-md py-stack-sm hover:bg-surface-container-high active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">Stats</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center text-on-surface-variant px-stack-md py-stack-sm hover:bg-surface-container-high active:scale-90 transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</button>
+</nav>
+<!-- Floating Micro-interaction Background Effect -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-30">
+<div class="absolute top-[20%] right-[-5%] w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[10%] left-[-10%] w-80 h-80 bg-tertiary/5 rounded-full blur-3xl"></div>
+</div>
+<script>
+    class CalendarManager {
+        constructor() {
+            this.currentDate = new Date();
+            this.selectedDate = new Date(2024, 4, 10); // May 10, 2024
+            this.viewYear = 2024;
+            this.viewMonth = 4; // 0-indexed
+
+            this.mockData = {
+                '2024-04-10': [
+                    { title: '알고리즘 스터디', time: '19:00 ~ 21:00', type: '학습', color: 'primary', icon: 'schedule' },
+                    { title: '개인 운동', time: '08:00 ~ 09:30', type: '생활', color: 'tertiary', icon: 'fitness_center' }
+                ],
+                '2024-04-11': [
+                    { title: '팀 프로젝트 회의', time: '14:00 ~ 16:00', type: '학습', color: 'primary', icon: 'groups' },
+                    { title: '전공 서적 독서', time: '10:00 ~ 12:00', type: '학습', color: 'primary', icon: 'menu_book' }
+                ],
+                '2024-04-12': [
+                    { title: '주간 회고', time: '20:00 ~ 21:00', type: '기타', color: 'secondary', icon: 'history_edu' }
+                ],
+                '2024-05-10': [
+                    { title: '경제학 원론 세미나', time: '13:00 ~ 15:00', type: '학습', color: 'primary', icon: 'school' },
+                    { title: '동아리 정기 모임', time: '18:00 ~ 20:00', type: '생활', color: 'secondary', icon: 'celebration' }
+                ]
+            };
+
+            this.init();
+        }
+
+        init() {
+            this.render();
+            this.setupEventListeners();
+        }
+
+        setupEventListeners() {
+            document.getElementById('prev-month').addEventListener('click', () => {
+                this.changeMonth(-1);
+                this.vibrate();
+            });
+            document.getElementById('next-month').addEventListener('click', () => {
+                this.changeMonth(1);
+                this.vibrate();
+            });
+
+            // Selector Modal Events
+            const openBtn = document.getElementById('open-selector');
+            const closeBtn = document.getElementById('close-selector');
+            const cancelBtn = document.getElementById('modal-cancel');
+            const modal = document.getElementById('selector-modal');
+            const content = document.getElementById('modal-content');
+
+            const toggleModal = (show) => {
+                if (show) {
+                    this.renderSelectorOptions();
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.remove('opacity-0');
+                        content.classList.remove('scale-95');
+                    }, 10);
+                } else {
+                    modal.classList.add('opacity-0');
+                    content.classList.add('scale-95');
+                    setTimeout(() => modal.classList.add('hidden'), 200);
+                }
+            };
+
+            openBtn.addEventListener('click', () => toggleModal(true));
+            closeBtn.addEventListener('click', () => toggleModal(false));
+            cancelBtn.addEventListener('click', () => toggleModal(false));
+            modal.addEventListener('click', (e) => { if(e.target === modal) toggleModal(false); });
+        }
+
+        vibrate() {
+            if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(5);
+        }
+
+        changeMonth(delta) {
+            this.viewMonth += delta;
+            if (this.viewMonth < 0) {
+                this.viewMonth = 11;
+                this.viewYear--;
+            } else if (this.viewMonth > 11) {
+                this.viewMonth = 0;
+                this.viewYear++;
+            }
+            this.updateSelectionToFirstOfMonth();
+            this.render();
+        }
+
+        updateSelectionToFirstOfMonth() {
+            // Keep the selected date within the same month when navigating via arrows
+            this.selectedDate = new Date(this.viewYear, this.viewMonth, 1);
+        }
+
+        formatDateKey(year, month, day) {
+            return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        }
+
+        renderSelectorOptions() {
+            const yearGrid = document.getElementById('year-grid');
+            const monthGrid = document.getElementById('month-grid');
+            
+            // Render Years (2020-2030)
+            let yearHtml = '';
+            for(let y = 2020; y <= 2030; y++) {
+                const isSelected = y === this.viewYear;
+                yearHtml += `
+                    <button class="py-2 rounded-lg text-body-md transition-all ${isSelected ? 'bg-primary text-on-primary font-bold' : 'bg-surface-container-high text-on-surface-variant'}" 
+                            onclick="window.calendarManager.selectYear(${y})">
+                        ${y}
+                    </button>
+                `;
+            }
+            yearGrid.innerHTML = yearHtml;
+
+            // Render Months (1-12)
+            let monthHtml = '';
+            for(let m = 0; m < 12; m++) {
+                const isSelected = m === this.viewMonth;
+                monthHtml += `
+                    <button class="py-2 rounded-lg text-body-md transition-all ${isSelected ? 'bg-primary text-on-primary font-bold' : 'bg-surface-container-high text-on-surface-variant'}" 
+                            onclick="window.calendarManager.selectMonth(${m})">
+                        ${m + 1}월
+                    </button>
+                `;
+            }
+            monthGrid.innerHTML = monthHtml;
+        }
+
+        selectYear(y) {
+            this.viewYear = y;
+            this.vibrate();
+            this.renderSelectorOptions();
+            this.syncAndRender();
+        }
+
+        selectMonth(m) {
+            this.viewMonth = m;
+            this.vibrate();
+            this.renderSelectorOptions();
+            this.syncAndRender();
+        }
+
+        syncAndRender() {
+            this.updateSelectionToFirstOfMonth();
+            this.render();
+        }
+
+        render() {
+            this.renderMonthlyGrid();
+            this.renderWeeklyPicker();
+            this.renderSchedule();
+        }
+
+        renderMonthlyGrid() {
+            const grid = document.getElementById('monthly-grid');
+            const display = document.getElementById('current-month-display');
+            display.textContent = `${this.viewYear}년 ${this.viewMonth + 1}월`;
+
+            const days = ['일', '월', '화', '수', '목', '금', '토'];
+            const firstDay = new Date(this.viewYear, this.viewMonth, 1).getDay();
+            const lastDate = new Date(this.viewYear, this.viewMonth + 1, 0).getDate();
+            const prevMonthLastDate = new Date(this.viewYear, this.viewMonth, 0).getDate();
+
+            let html = days.map((d, i) => {
+                let colorClass = 'text-outline';
+                if (i === 0) colorClass = 'text-error';
+                if (i === 6) colorClass = 'text-primary';
+                return `<div class="text-label-sm font-label-sm ${colorClass}">${d}</div>`;
+            }).join('');
+
+            for (let i = firstDay - 1; i >= 0; i--) {
+                html += `<div class="py-1 text-body-md text-outline-variant opacity-40">${prevMonthLastDate - i}</div>`;
+            }
+
+            for (let d = 1; d <= lastDate; d++) {
+                const isSelected = this.selectedDate.getFullYear() === this.viewYear && 
+                                 this.selectedDate.getMonth() === this.viewMonth && 
+                                 this.selectedDate.getDate() === d;
+                
+                const dayKey = this.formatDateKey(this.viewYear, this.viewMonth, d);
+                const hasData = this.mockData[dayKey] && this.mockData[dayKey].length > 0;
+                
+                const dayOfWeek = new Date(this.viewYear, this.viewMonth, d).getDay();
+                const isHoliday = (this.viewMonth === 4 && d === 5) || (this.viewMonth === 4 && d === 15);
+                const isSaturday = (dayOfWeek === 6);
+                const isSunday = (dayOfWeek === 0);
+
+                let textColor = 'text-on-surface';
+                if (isSunday || isHoliday) textColor = 'text-error';
+                else if (isSaturday) textColor = 'text-primary';
+
+                const cellClass = isSelected 
+                    ? 'bg-primary text-on-primary rounded-full' 
+                    : `${textColor} rounded-full hover:bg-surface-container-high`;
+
+                html += `
+                    <div class="date-cell py-1 text-body-md cursor-pointer transition-all relative ${cellClass}" data-date="${dayKey}">
+                        ${d}
+                        ${hasData && !isSelected ? `<div class="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-[2px]"><div class="w-1 h-1 bg-primary rounded-full"></div></div>` : ''}
+                        ${this.viewMonth === 4 && d === 15 ? `<span class="text-[8px] absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-error opacity-70">석가탄신일</span>` : ''}
+                    </div>
+                `;
+            }
+
+            grid.innerHTML = html;
+
+            grid.querySelectorAll('.date-cell').forEach(cell => {
+                cell.addEventListener('click', () => {
+                    const [y, m, d] = cell.dataset.date.split('-').map(Number);
+                    this.selectedDate = new Date(y, m, d);
+                    this.vibrate();
+                    this.render();
+                });
+            });
+        }
+
+        renderWeeklyPicker() {
+            const picker = document.getElementById('weekly-picker');
+            picker.innerHTML = '';
+            
+            for (let i = -3; i <= 3; i++) {
+                const d = new Date(this.selectedDate);
+                d.setDate(this.selectedDate.getDate() + i);
+                
+                const isSelected = i === 0;
+                const dayName = ['일', '월', '화', '수', '목', '금', '토'][d.getDay()];
+                const dayNum = d.getDate();
+                const dayKey = this.formatDateKey(d.getFullYear(), d.getMonth(), dayNum);
+                const hasData = this.mockData[dayKey] && this.mockData[dayKey].length > 0;
+
+                const btn = document.createElement('button');
+                btn.className = isSelected 
+                    ? "picker-btn flex flex-col items-center justify-center min-w-[56px] py-stack-md bg-primary text-on-primary rounded-xl shadow-lg transition-all scale-105 z-10"
+                    : "picker-btn flex flex-col items-center justify-center min-w-[56px] py-stack-md bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:bg-surface-container-high transition-all";
+                
+                btn.innerHTML = `
+                    <span class="text-label-md font-label-md ${isSelected ? 'opacity-80' : 'text-on-surface-variant'}">${dayName}</span>
+                    <span class="text-title-md font-title-md ${isSelected ? 'text-on-primary' : 'text-on-surface'}">${dayNum}</span>
+                    ${hasData ? `<div class="w-1 h-1 ${isSelected ? 'bg-on-primary' : 'bg-primary'} rounded-full mt-1"></div>` : '<div class="h-2"></div>'}
+                `;
+
+                btn.addEventListener('click', () => {
+                    this.selectedDate = d;
+                    this.viewYear = d.getFullYear();
+                    this.viewMonth = d.getMonth();
+                    this.vibrate();
+                    this.render();
+                });
+
+                picker.appendChild(btn);
+            }
+
+            picker.scrollTo({ left: (picker.scrollWidth / 2) - (picker.offsetWidth / 2), behavior: 'smooth' });
+        }
+
+        renderSchedule() {
+            const title = document.getElementById('schedule-title');
+            const countBadge = document.getElementById('task-count');
+            const list = document.getElementById('schedule-list');
+
+            const month = this.selectedDate.getMonth() + 1;
+            const day = this.selectedDate.getDate();
+            const dateKey = this.formatDateKey(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), day);
+            const tasks = this.mockData[dateKey] || [];
+
+            title.textContent = `${month}월 ${day}일의 일정`;
+            countBadge.textContent = `${tasks.length}개 남음`;
+            countBadge.style.display = tasks.length > 0 ? 'block' : 'none';
+
+            list.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (tasks.length === 0) {
+                    list.innerHTML = `
+                        <div class="py-12 flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+                            <span class="material-symbols-outlined text-[48px] mb-2">event_busy</span>
+                            <p class="text-body-md">일정이 없습니다.</p>
+                        </div>
+                    `;
+                } else {
+                    list.innerHTML = tasks.map(task => `
+                        <div class="bg-surface-container-lowest rounded-xl p-stack-md border border-outline-variant/30 flex gap-stack-md items-start relative overflow-hidden group hover:shadow-md transition-shadow">
+                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-${task.color}"></div>
+                            <div class="flex flex-col flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-label-sm font-label-sm bg-${task.color}-fixed text-on-${task.color}-fixed-variant px-2 py-0.5 rounded-pill">${task.type}</span>
+                                    <button class="p-1 hover:bg-surface-container-high rounded-full">
+                                        <span class="material-symbols-outlined text-[20px] text-on-surface-variant">more_vert</span>
+                                    </button>
+                                </div>
+                                <h3 class="text-body-lg font-title-md text-on-surface">${task.title}</h3>
+                                <p class="text-body-md text-on-surface-variant mt-1 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">${task.icon}</span> ${task.time}
+                                </p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                list.style.opacity = '1';
+            }, 100);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        window.calendarManager = new CalendarManager();
+    });
+</script>
+</body></html>
