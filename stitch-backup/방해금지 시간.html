@@ -1,0 +1,444 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>일정 추가 - StudyFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dadb",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary": "#8c5000",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c2c6d8",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface": "#f8f9fa",
+                        "tertiary-container": "#de211c",
+                        "on-secondary-container": "#633700",
+                        "on-tertiary-fixed": "#410001",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#0066ff",
+                        "outline": "#727687",
+                        "secondary-fixed-dim": "#ffb874",
+                        "tertiary": "#b60009",
+                        "surface-bright": "#f8f9fa",
+                        "primary-container": "#0066ff",
+                        "surface-container": "#edeeef",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "surface-variant": "#e1e3e4",
+                        "on-background": "#191c1d",
+                        "secondary-fixed": "#ffdcbf",
+                        "inverse-surface": "#2e3132",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-fixed": "#dae1ff",
+                        "on-surface-variant": "#424656",
+                        "tertiary-fixed": "#ffdad5",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001849",
+                        "background": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "on-primary-container": "#f8f7ff",
+                        "on-tertiary-container": "#fff6f4",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed": "#2d1600",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "inverse-primary": "#b3c5ff",
+                        "on-secondary-fixed-variant": "#6a3b00",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fe9400",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "stack-sm": "4px",
+                        "gutter": "12px",
+                        "base": "8px",
+                        "stack-lg": "24px",
+                        "container-padding": "16px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Hanken Grotesk"],
+                        "title-md": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .safe-bottom { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+        
+        .selected-color-ring { outline: 2px solid #0066ff; outline-offset: 2px; }
+
+        /* Custom Scroll Wheel */
+        .picker-wheel {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
+        }
+        .picker-wheel::-webkit-scrollbar { display: none; }
+        .picker-item { height: 44px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: all 0.2s; }
+        .picker-item.selected { font-weight: 700; color: #0066ff; font-size: 1.5rem; }
+        .picker-item:not(.selected) { opacity: 0.3; filter: blur(0.5px); }
+
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .animate-up { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-40 bg-surface border-b border-outline-variant h-16 flex justify-between items-center px-margin-mobile">
+<div class="flex items-center gap-4">
+<button class="hover:bg-primary-container/10 transition-colors active:scale-95 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">방해 금지 시간 추가&nbsp;</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKcphtoiYNE_t4Mida942izvFTPsVd720wFcQcSWRs5nibGcniad8SxFpr5YXiSGKZmgRAW-v8UBP6xLsHPqPZwOT-26Y4jeV-KqrXrXlTbMC84JNrqrLbJlWue9Uh5mcz07p5FqCbKpWuzvGyohxHAG0JrFaGGWyX3Bd7fftaX1lHhIFfTwOpm5aecKtA1H1U-w90fEdXFTaYOAxiryLxV9-xBhjBkwgXO_ppq0XRTp0VfJIS96BOhGzFYcv2ipxsCSZhh1xrflY">
+</div>
+</header>
+<main class="flex-1 mt-16 px-margin-mobile pt-stack-lg space-y-stack-lg pb-32">
+<!-- Schedule Name Section -->
+<section class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">일정 이름</label>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all duration-200 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary shadow-sm">
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-lg text-body-lg text-on-surface placeholder:text-outline-variant" id="schedule-name-input" placeholder="예: 경제학 발표 준비" type="text" value="경제학 발표 준비">
+</div>
+</section>
+<!-- Time Selection Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="h-1.5 bg-primary w-full" id="preview-accent"></div>
+<div class="p-container-padding space-y-stack-md">
+<div class="flex items-center gap-2 mb-stack-sm">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<h3 class="font-title-md text-title-md">시간 및 요일 설정</h3>
+</div>
+<div class="grid grid-cols-2 gap-gutter relative">
+<div class="space-y-stack-sm">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">시작 시간</label>
+<button class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-left flex justify-between items-center" id="start-time-trigger">
+<span id="start-time-display" class="">09:00</span>
+<span class="material-symbols-outlined text-outline text-sm">schedule</span>
+</button>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">종료 시간</label>
+<button class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 font-body-md text-body-md text-left flex justify-between items-center" id="end-time-trigger">
+<span id="end-time-display" class="">10:30</span>
+<span class="material-symbols-outlined text-outline text-sm">schedule</span>
+</button>
+</div>
+<!-- Validation Warning Message -->
+<div class="hidden absolute -bottom-6 left-0 right-0 flex items-center gap-1 text-error text-[10px] font-medium transition-all" id="time-warning">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+<span class="">종료 시간이 시작 시간보다 빨라요.</span>
+</div>
+</div>
+<!-- Day Selector -->
+<div class="space-y-stack-sm pt-4">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">반복 요일</label>
+<div class="flex justify-between gap-1" id="day-selector">
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary active:scale-90 bg-primary-container text-on-primary-container border-primary" onclick="toggleDay(this, '월')">월</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary active:scale-90" onclick="toggleDay(this, '화')">화</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary active:scale-90 bg-primary-container text-on-primary-container border-primary" onclick="toggleDay(this, '수')">수</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary active:scale-90" onclick="toggleDay(this, '목')">목</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary active:scale-90 bg-primary-container text-on-primary-container border-primary" onclick="toggleDay(this, '금')">금</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-tertiary hover:border-tertiary active:scale-90" onclick="toggleDay(this, '토')">토</button>
+<button class="day-btn w-10 h-10 rounded-full flex items-center justify-center font-label-md text-label-md transition-all border border-outline-variant bg-surface-container-low text-tertiary-container hover:border-tertiary-container active:scale-90" onclick="toggleDay(this, '일')">일</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Color Selector -->
+<section class="space-y-stack-sm">
+<div class="flex items-center justify-between px-1">
+<label class="font-label-md text-label-md text-on-surface-variant">카테고리 색상</label>
+<span class="font-label-sm text-label-sm text-outline">카드 테두리에 표시됩니다</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-container-padding shadow-sm">
+<div class="flex flex-wrap gap-4 justify-around">
+<button class="color-swatch w-8 h-8 rounded-full bg-primary selected-color-ring" onclick="updateColor('#0066ff', this)"></button>
+<button class="color-swatch w-8 h-8 rounded-full bg-secondary-container" onclick="updateColor('#fe9400', this)"></button>
+<button class="color-swatch w-8 h-8 rounded-full bg-tertiary" onclick="updateColor('#b60009', this)"></button>
+<button class="color-swatch w-8 h-8 rounded-full bg-on-secondary-fixed" onclick="updateColor('#2d1600', this)"></button>
+<button class="color-swatch w-8 h-8 rounded-full bg-outline" onclick="updateColor('#727687', this)"></button>
+<button class="color-swatch w-8 h-8 rounded-full bg-on-primary-fixed-variant" onclick="updateColor('#003fa4', this)"></button>
+</div>
+</div>
+</section>
+<!-- Preview Card -->
+<section class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">미리보기</label>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex gap-4 items-center shadow-sm relative overflow-hidden" id="preview-card">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" id="preview-border"></div>
+<div class="flex-1 ml-2">
+<h4 class="font-title-md text-title-md text-on-surface" id="preview-title">경제학 발표 준비</h4>
+<p class="font-body-md text-body-md text-on-surface-variant" id="preview-time-days">09:00 - 10:30 | 월, 수, 금</p>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</div>
+</section>
+</main>
+<!-- Time Picker Modal -->
+<div class="fixed inset-0 z-[100] hidden flex items-end justify-center" id="time-picker-modal">
+<div class="modal-overlay absolute inset-0" onclick="closeTimePicker()"></div>
+<div class="glass-modal w-full max-w-md rounded-t-[24px] p-6 animate-up relative flex flex-col gap-6">
+<div class="w-12 h-1 bg-outline-variant/50 rounded-full mx-auto -mt-2"></div>
+<div class="flex justify-between items-center">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface" id="picker-title">시작 시간 설정</h3>
+<button class="p-1 text-on-surface-variant" onclick="closeTimePicker()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Quick Suggestions -->
+<div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant text-body-md hover:border-primary transition-all" onclick="quickSelect('08:00')">☀️ 아침 (08:00)</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant text-body-md hover:border-primary transition-all" onclick="quickSelect('19:00')">📚 공부 (19:00)</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant text-body-md hover:border-primary transition-all" onclick="quickSelect('18:00')">🏋️ 운동 (18:00)</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-low border border-outline-variant text-body-md hover:border-primary transition-all" onclick="quickSelect('22:00')">🌙 밤 (22:00)</button>
+</div>
+<!-- Wheel Content -->
+<div class="flex justify-center items-center h-48 relative overflow-hidden bg-black/5 rounded-2xl">
+<!-- Selector Highlight -->
+<div class="absolute top-1/2 left-0 right-0 h-[44px] -translate-y-1/2 border-y border-primary/20 pointer-events-none"></div>
+<div class="flex items-center gap-12 w-full justify-center">
+<!-- Hours -->
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-outline uppercase tracking-widest mb-1">HOURS</span>
+<div class="picker-wheel w-16 h-32 overflow-y-auto snap-y snap-mandatory py-11" id="hour-wheel"><div class="picker-item snap-center" data-val="00">00</div><div class="picker-item snap-center" data-val="01">01</div><div class="picker-item snap-center" data-val="02">02</div><div class="picker-item snap-center" data-val="03">03</div><div class="picker-item snap-center" data-val="04">04</div><div class="picker-item snap-center" data-val="05">05</div><div class="picker-item snap-center" data-val="06">06</div><div class="picker-item snap-center" data-val="07">07</div><div class="picker-item snap-center" data-val="08">08</div><div class="picker-item snap-center" data-val="09">09</div><div class="picker-item snap-center" data-val="10">10</div><div class="picker-item snap-center" data-val="11">11</div><div class="picker-item snap-center" data-val="12">12</div><div class="picker-item snap-center" data-val="13">13</div><div class="picker-item snap-center" data-val="14">14</div><div class="picker-item snap-center" data-val="15">15</div><div class="picker-item snap-center" data-val="16">16</div><div class="picker-item snap-center" data-val="17">17</div><div class="picker-item snap-center" data-val="18">18</div><div class="picker-item snap-center" data-val="19">19</div><div class="picker-item snap-center" data-val="20">20</div><div class="picker-item snap-center" data-val="21">21</div><div class="picker-item snap-center" data-val="22">22</div><div class="picker-item snap-center" data-val="23">23</div></div>
+</div>
+<span class="text-2xl font-bold text-primary -mt-4">:</span>
+<!-- Minutes -->
+<div class="flex flex-col items-center">
+<span class="text-[10px] text-outline uppercase tracking-widest mb-1">MINUTES</span>
+<div class="picker-wheel w-16 h-32 overflow-y-auto snap-y snap-mandatory py-11" id="minute-wheel"><div class="picker-item snap-center" data-val="00">00</div><div class="picker-item snap-center" data-val="05">05</div><div class="picker-item snap-center" data-val="10">10</div><div class="picker-item snap-center" data-val="15">15</div><div class="picker-item snap-center" data-val="20">20</div><div class="picker-item snap-center" data-val="25">25</div><div class="picker-item snap-center" data-val="30">30</div><div class="picker-item snap-center" data-val="35">35</div><div class="picker-item snap-center" data-val="40">40</div><div class="picker-item snap-center" data-val="45">45</div><div class="picker-item snap-center" data-val="50">50</div><div class="picker-item snap-center" data-val="55">55</div></div>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 py-4 px-6 rounded-xl font-title-md bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-variant" onclick="closeTimePicker()">취소</button>
+<button class="flex-[2] py-4 px-6 rounded-xl font-title-md bg-primary text-on-primary shadow-lg shadow-primary/20 hover:opacity-90" onclick="confirmTime()">선택 완료</button>
+</div>
+</div>
+</div>
+<!-- Bottom Action Bar -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface-container-lowest/80 backdrop-blur-md px-margin-mobile py-4 safe-bottom border-t border-outline-variant/30 flex gap-gutter z-30">
+<button class="flex-1 py-4 px-6 rounded-xl font-title-md text-title-md bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-all active:scale-95">취소</button>
+<button class="flex-[2] py-4 px-6 rounded-xl font-title-md text-title-md bg-primary text-on-primary shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-95">일정 저장하기</button>
+</footer>
+<script>
+    let currentTarget = 'start'; // 'start' or 'end'
+    let startTime = "09:00";
+    let endTime = "10:30";
+    let activeDays = [];
+
+    // Initialize wheels
+    const hourWheel = document.getElementById('hour-wheel');
+    const minuteWheel = document.getElementById('minute-wheel');
+
+    function populateWheels() {
+        hourWheel.innerHTML = '';
+        minuteWheel.innerHTML = '';
+        
+        for (let i = 0; i < 24; i++) {
+            const h = i.toString().padStart(2, '0');
+            const div = document.createElement('div');
+            div.className = 'picker-item snap-center';
+            div.innerText = h;
+            div.setAttribute('data-val', h);
+            hourWheel.appendChild(div);
+        }
+
+        for (let i = 0; i < 60; i += 5) {
+            const m = i.toString().padStart(2, '0');
+            const div = document.createElement('div');
+            div.className = 'picker-item snap-center';
+            div.innerText = m;
+            div.setAttribute('data-val', m);
+            minuteWheel.appendChild(div);
+        }
+        
+        // Add listeners for visual feedback
+        [hourWheel, minuteWheel].forEach(wheel => {
+            wheel.addEventListener('scroll', () => {
+                const items = wheel.querySelectorAll('.picker-item');
+                const wheelRect = wheel.getBoundingClientRect();
+                const center = wheelRect.top + wheelRect.height / 2;
+                
+                items.forEach(item => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemCenter = itemRect.top + itemRect.height / 2;
+                    if (Math.abs(center - itemCenter) < 22) {
+                        item.classList.add('selected');
+                    } else {
+                        item.classList.remove('selected');
+                    }
+                });
+            });
+        });
+    }
+
+    function openTimePicker(type) {
+        currentTarget = type;
+        document.getElementById('picker-title').innerText = type === 'start' ? '시작 시간 설정' : '종료 시간 설정';
+        const modal = document.getElementById('time-picker-modal');
+        modal.classList.remove('hidden');
+        
+        const currentVal = type === 'start' ? startTime : endTime;
+        const [h, m] = currentVal.split(':');
+        
+        // Scroll to current
+        setTimeout(() => {
+            const hItem = hourWheel.querySelector(`[data-val="${h}"]`);
+            const mVal = (Math.round(parseInt(m) / 5) * 5).toString().padStart(2, '0');
+            const mItem = minuteWheel.querySelector(`[data-val="${mVal === '60' ? '00' : mVal}"]`);
+            
+            if (hItem) hItem.scrollIntoView({ block: 'center' });
+            if (mItem) mItem.scrollIntoView({ block: 'center' });
+        }, 100);
+    }
+
+    function closeTimePicker() {
+        document.getElementById('time-picker-modal').classList.add('hidden');
+    }
+
+    function confirmTime() {
+        const selectedHour = hourWheel.querySelector('.selected')?.getAttribute('data-val') || '00';
+        const selectedMinute = minuteWheel.querySelector('.selected')?.getAttribute('data-val') || '00';
+        const timeStr = `${selectedHour}:${selectedMinute}`;
+        
+        if (currentTarget === 'start') {
+            startTime = timeStr;
+            document.getElementById('start-time-display').innerText = timeStr;
+        } else {
+            endTime = timeStr;
+            document.getElementById('end-time-display').innerText = timeStr;
+        }
+        
+        validateTimes();
+        updatePreview();
+        closeTimePicker();
+    }
+
+    function quickSelect(time) {
+        const [h, m] = time.split(':');
+        const hItem = hourWheel.querySelector(`[data-val="${h}"]`);
+        const mItem = minuteWheel.querySelector(`[data-val="${m}"]`);
+        if (hItem) hItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (mItem) mItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function validateTimes() {
+        const start = parseInt(startTime.replace(':', ''));
+        const end = parseInt(endTime.replace(':', ''));
+        const warning = document.getElementById('time-warning');
+        
+        if (end < start) {
+            warning.classList.remove('hidden');
+            document.getElementById('end-time-trigger').classList.add('border-error');
+        } else {
+            warning.classList.add('hidden');
+            document.getElementById('end-time-trigger').classList.remove('border-error');
+        }
+    }
+
+    function toggleDay(btn, day) {
+        const isSelected = btn.classList.contains('bg-primary-container');
+        if (isSelected) {
+            btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            activeDays = activeDays.filter(d => d !== day);
+        } else {
+            btn.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            activeDays.push(day);
+        }
+        updatePreview();
+    }
+
+    function updateColor(colorHex, btn) {
+        document.getElementById('preview-accent').style.backgroundColor = colorHex;
+        document.getElementById('preview-border').style.backgroundColor = colorHex;
+        document.querySelectorAll('.color-swatch').forEach(swatch => swatch.classList.remove('selected-color-ring'));
+        btn.classList.add('selected-color-ring');
+    }
+
+    function updatePreview() {
+        const nameInput = document.getElementById('schedule-name-input');
+        const previewTitle = document.getElementById('preview-title');
+        const previewSub = document.getElementById('preview-time-days');
+        
+        previewTitle.innerText = nameInput.value || '일정 이름';
+        const dayString = activeDays.length > 0 ? activeDays.join(', ') : '';
+        previewSub.innerText = `${startTime} - ${endTime}${dayString ? ' | ' + dayString : ''}`;
+    }
+
+    // Event Listeners
+    document.getElementById('start-time-trigger').addEventListener('click', () => openTimePicker('start'));
+    document.getElementById('end-time-trigger').addEventListener('click', () => openTimePicker('end'));
+    document.getElementById('schedule-name-input').addEventListener('input', updatePreview);
+
+    // Initial Load
+    populateWheels();
+    // Set some default days for visual consistency with previous screenshot
+    const dayBtns = document.querySelectorAll('.day-btn');
+    const initialDays = ['월', '수', '금'];
+    dayBtns.forEach(btn => {
+        if (initialDays.includes(btn.innerText)) {
+            toggleDay(btn, btn.innerText);
+        }
+    });
+    updatePreview();
+</script>
+
+
+</body></html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="ko" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>StudyFlow - 설정</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#fff6f4",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container-highest": "#e1e3e4",
+                        "inverse-primary": "#b3c5ff",
+                        "outline-variant": "#c2c6d8",
+                        "secondary": "#8c5000",
+                        "on-secondary-fixed-variant": "#6a3b00",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "on-background": "#191c1d",
+                        "on-surface-variant": "#424656",
+                        "surface-bright": "#f8f9fa",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-primary-container": "#f8f7ff",
+                        "background": "#f8f9fa",
+                        "surface-dim": "#d9dadb",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#b60009",
+                        "secondary-container": "#fe9400",
+                        "on-tertiary-fixed": "#410001",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdad5",
+                        "outline": "#727687",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed": "#ffdcbf",
+                        "on-secondary-container": "#633700",
+                        "inverse-surface": "#2e3132",
+                        "surface-container": "#edeeef",
+                        "surface-variant": "#e1e3e4",
+                        "primary": "#0050cb",
+                        "on-secondary-fixed": "#2d1600",
+                        "primary-fixed": "#dae1ff",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "surface": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#de211c",
+                        "surface-tint": "#0054d6",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed-dim": "#ffb874",
+                        "primary-container": "#0066ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "4px",
+                        "margin-mobile": "20px",
+                        "stack-lg": "24px",
+                        "container-padding": "16px",
+                        "base": "8px",
+                        "stack-md": "12px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "title-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .toggle-checked { transform: translateX(100%); background-color: white !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-background z-50 flex justify-between items-center px-margin-mobile py-base">
+<div class="flex items-center gap-stack-md">
+<img alt="Student Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A professional studio portrait of a young Korean university student with a friendly and focused expression. The lighting is soft and high-key, creating a clean academic atmosphere. The background is a minimalist, neutral studio setting that emphasizes a modern, disciplined aesthetic consistent with a premium study application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvmPugtkMZDYoRawpFiFud6z1rEMfKcj80nqaO4zq3RDX4pwTb2owvPCKxHmQmB8f3MNdf4U5GBXa5qbFReSPxhCgmxrZsrkdZxtHyIMezsfu7vwAAae8osCOK04xejj9nbYsFDu_B3Y1H6kt0gHGxrBj4cj7CENS1avH-jSz0vf3ilBb30_NVmGdCKUbOAS8zoWwoCDsMv6FEHlVVawLKwg2IHWW0v80LM_EDIJqd0okQ1jrkwaMS4Ci0Y20chWo_62wPh0T6Di4">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary">설정</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile mt-stack-lg space-y-stack-lg">
+<!-- User Profile Card (Level 1) -->
+<section class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-stack-lg flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-full">
+<span class="material-symbols-outlined text-on-primary-fixed">person</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface">김지수</h2>
+<p class="text-label-md font-label-md text-on-surface-variant">jisoo.kim@univ.ac.kr</p>
+</div>
+</div>
+<button class="text-primary font-label-md">수정</button>
+</section>
+<!-- Settings Groups -->
+<div class="space-y-stack-md">
+<!-- 1. Display Settings -->
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl overflow-hidden shadow-sm">
+<div class="p-stack-lg">
+<h3 class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-stack-sm">화면 및 표시</h3>
+<div class="flex items-center justify-between py-stack-sm">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">text_fields</span>
+<span class="text-body-lg font-body-lg text-on-surface">글자 크기</span>
+</div>
+<span class="text-body-md font-body-md text-primary">보통</span>
+</div>
+<div class="flex items-center justify-between py-stack-sm mt-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">dark_mode</span>
+<span class="text-body-lg font-body-lg text-on-surface">다크 모드</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="darkModeToggle" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div><div class="flex items-center justify-between py-stack-sm mt-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<span class="text-body-lg font-body-lg text-on-surface">지난 일정 표시</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- 2. Notifications -->
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl overflow-hidden shadow-sm">
+<div class="p-stack-lg">
+<h3 class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-stack-sm">알림 설정</h3>
+<div class="flex items-center justify-between py-stack-sm">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">volume_up</span>
+<span class="text-body-lg font-body-lg text-on-surface">알림음</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-stack-sm mt-stack-md">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">vibration</span>
+<span class="text-body-lg font-body-lg text-on-surface">진동</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between py-stack-sm mt-stack-md group cursor-pointer">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+<span class="text-body-lg font-body-lg text-on-surface">시간대별 알림 설정</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div><div class="flex items-center justify-between py-stack-sm mt-stack-md group cursor-pointer">
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant">category</span>
+<span class="text-body-lg font-body-lg text-on-surface">카테고리별 알림 설정</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div></div>
+</div>
+</div>
+<!-- Logout / Version info -->
+<div class="pt-stack-lg flex flex-col items-center gap-stack-md">
+<button class="w-full py-stack-md border border-error/20 text-error font-title-md rounded-xl hover:bg-error-container/10 transition-colors active:scale-95 duration-200">
+                로그아웃
+            </button>
+<p class="text-label-md font-label-md text-outline-variant">StudyFlow v2.4.0</p>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 bg-primary text-on-primary shadow-lg flex items-center justify-center active:scale-90 transition-all duration-200 z-40 right-6 w-16 h-16 rounded-full">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-container-padding pb-safe pt-stack-md bg-surface-container-lowest dark:bg-inverse-surface shadow-[0px_-4px_12px_rgba(0,0,0,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-stack-md py-stack-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-md font-label-md mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-stack-md py-stack-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-label-md font-label-md mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-stack-md py-stack-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-on-primary-fixed rounded-xl px-stack-md py-stack-sm active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-md font-label-md mt-1">Settings</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Add active feedback for buttons
+        const listItems = document.querySelectorAll('button, a');
+        listItems.forEach(item => {
+            item.addEventListener('touchstart', () => item.style.transform = 'scale(0.98)');
+            item.addEventListener('touchend', () => item.style.transform = 'scale(1)');
+        });
+    </script>
+</body></html>
