@@ -6,11 +6,17 @@ function minutesUntil(date, time) {
   return Math.round((due.getTime() - Date.now()) / 60000);
 }
 
+function dateTimeLabel(date, time, type) {
+  const today = getTodayISO();
+  if (date === today) return `오늘 ${time || (type === "task" ? "23:59" : "시간 미정")} ${type === "task" ? "마감" : "시작"}`;
+  return `${date} ${time || ""} ${type === "task" ? "마감" : "시작"}`.trim();
+}
+
 function describeMinutes(minutes, type) {
-  if (minutes < 0) return type === "event" ? "이미 시작" : "마감 지남";
+  if (minutes < 0) return type === "event" ? "이미 시작됨" : "마감 지남";
   if (minutes < 60) return `${minutes}분 후 ${type === "event" ? "시작" : "마감"}`;
   if (minutes < 1440) return `${Math.round(minutes / 60)}시간 후 ${type === "event" ? "시작" : "마감"}`;
-  return type === "event" ? "예정 일정" : "예정 작업";
+  return type === "event" ? "예정된 일정" : "예정된 작업";
 }
 
 export function getPriorityTop3(tasks, events) {
@@ -24,7 +30,11 @@ export function getPriorityTop3(tasks, events) {
         id: task.id,
         title: task.title,
         type: "task",
-        reason: task.date === today && !task.time ? "오늘 마감" : describeMinutes(minutes, "task"),
+        reason: task.date === today && !task.time ? "오늘 예정된 작업" : describeMinutes(minutes, "task"),
+        details: [
+          dateTimeLabel(task.date, task.time, "task"),
+          "아직 완료되지 않음",
+        ],
         score: minutes + todayBoost,
       };
     });
@@ -36,7 +46,11 @@ export function getPriorityTop3(tasks, events) {
       id: event.id,
       title: event.title,
       type: "event",
-      reason: event.date === today && !event.startTime ? "오늘 일정" : describeMinutes(minutes, "event"),
+      reason: event.date === today && !event.startTime ? "오늘 예정된 일정" : describeMinutes(minutes, "event"),
+      details: [
+        dateTimeLabel(event.date, event.startTime, "event"),
+        event.endTime ? `${event.endTime} 종료` : "",
+      ].filter(Boolean),
       score: minutes + todayBoost,
     };
   });

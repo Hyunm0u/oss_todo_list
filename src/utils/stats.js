@@ -34,11 +34,21 @@ function chunk(items, size) {
   return groups;
 }
 
+function getCountedTasks(tasks, today) {
+  return tasks.filter((task) => task.completed || !task.date || task.date >= today);
+}
+
+function getCountedEvents(events, today) {
+  return events.filter((event) => !event.date || event.date >= today);
+}
+
 export function calculateStats(tasks, events) {
   const now = new Date();
   const today = isoDate(now);
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((task) => task.completed).length;
+  const countedTasks = getCountedTasks(tasks, today);
+  const countedEvents = getCountedEvents(events, today);
+  const totalTasks = countedTasks.length;
+  const completedTasks = countedTasks.filter((task) => task.completed).length;
   const completionRate = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0;
   const overdueTasks = tasks.filter((task) => !task.completed && task.date && task.date < today).length;
 
@@ -46,27 +56,28 @@ export function calculateStats(tasks, events) {
   const weekDays = rangeDays(weekStart, 7);
   const weekdayLabels = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
   const weeklyTrend = weekDays.map((date) => {
-    const completed = tasks.filter((task) => task.completedAt?.slice(0, 10) === date).length;
-    const due = tasks.filter((task) => task.date === date).length;
-    const eventCount = events.filter((event) => event.date === date).length;
-    return { date, label: weekdayLabels[toDate(date).getDay()], completed, due, events: eventCount, total: completed + eventCount };
+    const completed = countedTasks.filter((task) => task.completedAt?.slice(0, 10) === date).length;
+    const due = countedTasks.filter((task) => task.date === date).length;
+    const eventCount = countedEvents.filter((event) => event.date === date).length;
+    return { date, label: weekdayLabels[toDate(date).getDay()], completed, due, events: eventCount, total: completed + due + eventCount };
   });
 
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
   const monthLength = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
   const monthDays = rangeDays(monthStart, monthLength);
-  const monthlyTrend = chunk(monthDays, 7).map((days, index) => ({
-    label: `${index + 1}주`,
-    completed: days.reduce((sum, date) => sum + tasks.filter((task) => task.completedAt?.slice(0, 10) === date).length, 0),
-    events: days.reduce((sum, date) => sum + events.filter((event) => event.date === date).length, 0),
-  })).map((item) => ({ ...item, total: item.completed + item.events }));
+  const monthlyTrend = chunk(monthDays, 7).map((days, index) => {
+    const completed = days.reduce((sum, date) => sum + countedTasks.filter((task) => task.completedAt?.slice(0, 10) === date).length, 0);
+    const due = days.reduce((sum, date) => sum + countedTasks.filter((task) => task.date === date).length, 0);
+    const eventCount = days.reduce((sum, date) => sum + countedEvents.filter((event) => event.date === date).length, 0);
+    return { label: `${index + 1}주`, completed, due, events: eventCount, total: completed + due + eventCount };
+  });
 
   const categoryDistribution = CATEGORIES.map((category) => {
-    const count = tasks.filter((task) => task.category === category.id).length + events.filter((event) => event.category === category.id).length;
-    return { ...category, count, percent: tasks.length + events.length ? Math.round((count / (tasks.length + events.length)) * 100) : 0 };
+    const count = countedTasks.filter((task) => task.category === category.id).length + countedEvents.filter((event) => event.category === category.id).length;
+    return { ...category, count, percent: countedTasks.length + countedEvents.length ? Math.round((count / (countedTasks.length + countedEvents.length)) * 100) : 0 };
   }).filter((category) => category.count > 0);
 
-  const completedDates = new Set(tasks.filter((task) => task.completedAt).map((task) => task.completedAt.slice(0, 10)));
+  const completedDates = new Set(countedTasks.filter((task) => task.completedAt).map((task) => task.completedAt.slice(0, 10)));
   let currentStreak = 0;
   for (let index = 0; index < 365; index += 1) {
     const date = new Date(now);
@@ -75,15 +86,15 @@ export function calculateStats(tasks, events) {
     currentStreak += 1;
   }
 
-  const mostPostponedTask = [...tasks].sort((a, b) => Number(b.postponedCount || 0) - Number(a.postponedCount || 0))[0] ?? null;
-  const upcomingEvents = events.filter((event) => event.date >= today).sort((a, b) => `${a.date} ${a.startTime}`.localeCompare(`${b.date} ${b.startTime}`)).slice(0, 3);
+  const mostPostponedTask = [...countedTasks].sort((a, b) => Number(b.postponedCount || 0) - Number(a.postponedCount || 0))[0] ?? null;
+  const upcomingEvents = countedEvents.sort((a, b) => `${a.date} ${a.startTime}`.localeCompare(`${b.date} ${b.startTime}`)).slice(0, 3);
   const bestDay = [...weeklyTrend].sort((a, b) => b.completed - a.completed)[0];
   const insight = totalTasks === 0
-    ? "첫 작업을 추가하면 생산성 흐름을 기록할 수 있습니다."
+    ? "오늘 이후의 작업을 추가하면 생산성 흐름을 기록할 수 있습니다."
     : completionRate >= 80
       ? "완료율이 좋습니다. 지금처럼 현실적인 범위로 계획을 유지하세요."
       : overdueTasks > 0
-        ? "기한이 지난 작업이 있습니다. 완료하거나 일정을 다시 조정해 보세요."
+        ? "지난 미완료 작업은 통계에서 제외했습니다. 오늘 이후 작업에 집중하세요."
         : `${bestDay?.label ?? "이번 주"}의 완료 흐름이 가장 좋습니다.`;
 
   return {
@@ -91,7 +102,7 @@ export function calculateStats(tasks, events) {
     completedTasks,
     completionRate,
     overdueTasks,
-    totalEvents: events.length,
+    totalEvents: countedEvents.length,
     weeklyTrend,
     monthlyTrend,
     categoryDistribution,

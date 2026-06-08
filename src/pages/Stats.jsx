@@ -31,7 +31,7 @@ export default function Stats() {
 
         <SurfaceCard className="p-stack-lg">
           <h2 className="mb-stack-sm text-title-md font-title-md text-on-surface">완료 흐름</h2>
-          <p className="text-body-md font-body-md text-on-surface-variant">{stats.insight}</p>
+          <p className="whitespace-pre-wrap break-words text-body-md font-body-md text-on-surface-variant">{stats.insight}</p>
         </SurfaceCard>
 
         <SurfaceCard className="p-stack-lg">
@@ -63,8 +63,15 @@ export default function Stats() {
         <SurfaceCard className="p-stack-lg">
           <h3 className="mb-stack-md text-title-md font-title-md text-on-surface">우선순위 TOP3</h3>
           {insights.priorities.length ? (
-            <ol className="list-decimal space-y-2 pl-5 text-body-md text-on-surface">
-              {insights.priorities.map((item) => <li key={`${item.type}-${item.id}`}>{item.title} ({item.reason})</li>)}
+            <ol className="list-decimal space-y-stack-md pl-5 text-body-md text-on-surface">
+              {insights.priorities.map((item) => (
+                <li key={`${item.type}-${item.id}`}>
+                  <p className="font-title-md">{item.title}</p>
+                  <ul className="mt-stack-sm list-disc space-y-1 pl-5 text-on-surface-variant">
+                    {(item.details?.length ? item.details : [item.reason]).map((detail) => <li key={detail}>{detail}</li>)}
+                  </ul>
+                </li>
+              ))}
             </ol>
           ) : <p className="text-body-md text-on-surface-variant">표시할 항목이 없습니다.</p>}
         </SurfaceCard>
@@ -86,7 +93,7 @@ export default function Stats() {
 
         <section className="grid grid-cols-1 gap-stack-lg sm:grid-cols-2">
           <Insight icon="event" title="예정된 일정" body={`${stats.totalEvents}개의 일정이 저장되어 있습니다.`} />
-          <Insight icon="warning" title="지연 작업" body={`${stats.overdueTasks}개의 작업이 지연되었습니다.`} />
+          <Insight icon="warning" title="지연 작업" body={`${stats.overdueTasks}개의 지난 미완료 작업은 통계에서 제외되었습니다.`} />
         </section>
       </main>
     </PageShell>

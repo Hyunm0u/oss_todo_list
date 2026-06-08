@@ -29,7 +29,8 @@ export default function Calendar() {
   const selectedEvents = events.filter((event) => event.date === selectedDate).sort((a, b) => (a.startTime || "").localeCompare(b.startTime || ""));
   const selectedTasks = tasks.filter((task) => task.date === selectedDate).sort((a, b) => (a.time || "99:99").localeCompare(b.time || "99:99"));
   const monthLabel = new Intl.DateTimeFormat("ko-KR", { month: "long", year: "numeric" }).format(cursor);
-  const years = Array.from({ length: 11 }, (_, index) => cursor.getFullYear() - 5 + index);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 31 }, (_, index) => currentYear - 10 + index);
 
   const moveMonth = (step) => setCursor((current) => new Date(current.getFullYear(), current.getMonth() + step, 1));
   const jumpMonth = () => {

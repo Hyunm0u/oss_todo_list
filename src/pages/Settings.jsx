@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AppHeader from "../components/AppHeader.jsx";
 import Icon from "../components/Icon.jsx";
@@ -12,6 +12,11 @@ export default function Settings() {
   const fileRef = useRef(null);
   const importRef = useRef(null);
   const profile = settings.profile ?? { name: "StudyFlow", photo: "" };
+  const [profileName, setProfileName] = useState(profile.name);
+
+  useEffect(() => {
+    setProfileName(profile.name || "StudyFlow");
+  }, [profile.name]);
 
   const clearEverything = () => {
     if (!window.confirm("StudyFlow의 모든 작업, 일정, 설정을 초기화하시겠습니까?")) return;
@@ -19,12 +24,20 @@ export default function Settings() {
     setMessage("데이터가 모두 초기화되었습니다.");
   };
 
-  const updateProfile = (patch) => updateSettings({ profile: { ...profile, ...patch } });
+  const saveProfileName = () => {
+    const name = profileName.trim() || "StudyFlow";
+    updateSettings({ profile: { ...profile, name } });
+    setProfileName(name);
+    setMessage("프로필 이름을 저장했습니다.");
+  };
 
   const uploadPhoto = (file) => {
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => updateProfile({ photo: reader.result });
+    reader.onload = () => {
+      updateSettings({ profile: { ...profile, photo: reader.result } });
+      setMessage("프로필 사진을 저장했습니다.");
+    };
     reader.readAsDataURL(file);
   };
 
@@ -51,8 +64,11 @@ export default function Settings() {
             {profile.photo ? <img src={profile.photo} alt="프로필" className="h-full w-full object-cover" /> : <Icon fill className="text-[34px]">person</Icon>}
           </button>
           <input ref={fileRef} className="hidden" type="file" accept="image/*" onChange={(event) => uploadPhoto(event.target.files?.[0])} />
-          <div className="flex-1">
-            <input className="field-input" value={profile.name} onChange={(event) => updateProfile({ name: event.target.value })} aria-label="이름" />
+          <div className="min-w-0 flex-1">
+            <div className="flex gap-gutter">
+              <input className="field-input min-w-0" value={profileName} onChange={(event) => setProfileName(event.target.value)} aria-label="이름" />
+              <button type="button" onClick={saveProfileName} className="shrink-0 rounded-xl bg-primary px-4 py-3 text-label-md font-label-md text-on-primary">저장</button>
+            </div>
             <p className="mt-stack-sm text-body-md text-on-surface-variant">{tasks.length}개 작업 · {events.length}개 일정</p>
           </div>
           <span className="rounded-pill bg-surface-container px-base py-stack-sm text-label-md text-on-surface-variant">v{settings.version}</span>

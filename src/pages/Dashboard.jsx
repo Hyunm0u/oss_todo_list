@@ -56,7 +56,7 @@ export default function Dashboard() {
           <h3 className="text-title-md font-title-md text-on-surface">생산성 인사이트</h3>
           <div className="flex gap-stack-md rounded-xl bg-primary-container p-stack-lg text-on-primary-container shadow-soft">
             <Icon fill className="text-[28px]">auto_awesome</Icon>
-            <p className="text-body-md font-body-md leading-relaxed">{stats.insight}</p>
+            <p className="whitespace-pre-wrap break-words text-body-md font-body-md leading-relaxed">{stats.insight}</p>
           </div>
         </section>
       </main>
@@ -144,15 +144,22 @@ function AIInsights({ enabled, tasks, events }) {
   }, [enabled, tasks, events]);
 
   return (
-    <SurfaceCard className="p-stack-md">
+    <SurfaceCard className="h-auto p-stack-lg">
       {loading ? <p className="text-body-md text-on-surface-variant">AI 분석 중...</p> : (
         <div className="space-y-stack-md">
-          <p className="text-body-md text-on-surface-variant">{enabled ? insights.summary : "AI 기능이 꺼져 있어 로컬 우선순위 로직으로 표시합니다."}</p>
+          <p className="whitespace-pre-wrap break-words text-body-md text-on-surface-variant">{enabled ? insights.summary : "AI 기능이 꺼져 있어 로컬 우선순위 로직으로 표시합니다."}</p>
           <div className="rounded-xl bg-surface-container-lowest p-stack-md">
             <h4 className="text-title-sm font-title-md text-on-surface">우선순위 TOP3</h4>
             {insights.priorities.length ? (
-              <ol className="mt-stack-sm list-decimal space-y-1 pl-5 text-body-md text-on-surface">
-                {insights.priorities.map((item) => <li key={`${item.type}-${item.id}`}>{item.title} ({item.reason})</li>)}
+              <ol className="mt-stack-md list-decimal space-y-stack-md pl-5 text-body-md text-on-surface">
+                {insights.priorities.map((item) => (
+                  <li key={`${item.type}-${item.id}`} className="whitespace-normal break-words">
+                    <p className="font-title-md text-on-surface">{item.title}</p>
+                    <ul className="mt-stack-sm list-disc space-y-1 pl-5 text-on-surface-variant">
+                      {(item.details?.length ? item.details : [item.reason]).map((detail) => <li key={detail}>{detail}</li>)}
+                    </ul>
+                  </li>
+                ))}
               </ol>
             ) : <p className="mt-stack-sm text-body-md text-on-surface-variant">표시할 항목이 없습니다.</p>}
           </div>

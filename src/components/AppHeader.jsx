@@ -7,6 +7,7 @@ export default function AppHeader({ title, showProfile = false, back = false, ac
   const navigate = useNavigate();
   const { settings } = useAppData();
   const profile = settings?.profile ?? {};
+  const displayTitle = showProfile ? (profile.name || title) : title;
 
   return (
     <header className={`sticky top-0 z-40 flex w-full items-center justify-between bg-background/95 px-margin-mobile py-base backdrop-blur ${className}`}>
@@ -21,7 +22,7 @@ export default function AppHeader({ title, showProfile = false, back = false, ac
             {profile.photo ? <img src={profile.photo} alt="프로필" className="h-full w-full object-cover" /> : <Icon fill>school</Icon>}
           </div>
         ) : null}
-        <h1 className="truncate text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary">{title}</h1>
+        <h1 className="truncate text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary">{displayTitle}</h1>
       </div>
       {action ?? (
         <Link to="/settings" className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-container-high active:scale-95" aria-label="설정 열기">
