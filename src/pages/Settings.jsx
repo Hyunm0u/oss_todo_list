@@ -20,12 +20,14 @@ export default function Settings() {
   };
 
   const updateProfile = (patch) => updateSettings({ profile: { ...profile, ...patch } });
+
   const uploadPhoto = (file) => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => updateProfile({ photo: reader.result });
     reader.readAsDataURL(file);
   };
+
   const importJson = (file) => {
     if (!file) return;
     const reader = new FileReader();
@@ -66,7 +68,8 @@ export default function Settings() {
                 { id: "system", icon: "devices", label: "시스템" },
               ].map((item) => (
                 <button key={item.id} type="button" onClick={() => setThemeMode(item.id)} className={`flex flex-col items-center gap-stack-sm rounded-xl border p-stack-md transition-all active:scale-95 ${themeMode === item.id ? "border-primary bg-primary/10 text-primary" : "border-outline-variant bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high"}`}>
-                  <Icon>{item.icon}</Icon><span className="text-label-md font-label-md">{item.label}</span>
+                  <Icon>{item.icon}</Icon>
+                  <span className="text-label-md font-label-md">{item.label}</span>
                 </button>
               ))}
             </div>
@@ -112,7 +115,7 @@ export default function Settings() {
 
 function Action({ icon, label, value, onClick, divider = false, danger = false }) {
   return (
-    <button type="button" onClick={onClick} className={`flex w-full items-center gap-gutter px-container-padding py-stack-md text-left hover:bg-surface-container-low ${divider ? "border-t border-outline-variant/50" : ""}`}>
+    <button type="button" onClick={onClick} className={`flex w-full items-center gap-gutter px-container-padding py-stack-md text-left transition-colors hover:bg-surface-container-low ${divider ? "border-t border-outline-variant/50" : ""}`}>
       <Icon className={danger ? "text-error" : "text-primary"}>{icon}</Icon>
       <span className="flex-1 text-body-lg font-body-lg text-on-surface">{label}</span>
       <span className={danger ? "text-body-md text-error" : "text-body-md text-on-surface-variant"}>{value}</span>
@@ -123,7 +126,7 @@ function Action({ icon, label, value, onClick, divider = false, danger = false }
 
 function NavAction({ icon, label, to, divider = false }) {
   return (
-    <Link to={to} className={`flex w-full items-center gap-gutter px-container-padding py-stack-md hover:bg-surface-container-low ${divider ? "border-t border-outline-variant/50" : ""}`}>
+    <Link to={to} className={`flex w-full items-center gap-gutter px-container-padding py-stack-md transition-colors hover:bg-surface-container-low ${divider ? "border-t border-outline-variant/50" : ""}`}>
       <Icon className="text-primary">{icon}</Icon>
       <span className="flex-1 text-body-lg font-body-lg text-on-surface">{label}</span>
       <Icon className="text-outline">chevron_right</Icon>

@@ -6,10 +6,7 @@ const MINUTES = Array.from({ length: 60 }, (_, index) => String(index).padStart(
 
 function splitTime(value) {
   const [hour = "09", minute = "00"] = String(value || "09:00").split(":");
-  return {
-    hour: hour.padStart(2, "0"),
-    minute: minute.padStart(2, "0"),
-  };
+  return { hour: hour.padStart(2, "0"), minute: minute.padStart(2, "0") };
 }
 
 function joinTime(hour, minute) {
@@ -56,7 +53,6 @@ export default function DateTimeFields({ type, date, time, endTime, onChange }) 
           onHour={(value) => updateStart("hour", value)}
           onMinute={(value) => updateStart("minute", value)}
         />
-
         {showEnd ? (
           <WheelTimePicker
             icon="timer_off"
@@ -169,10 +165,7 @@ function WheelSelect({ label, value, options, suffix, onChange }) {
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex h-full flex-col items-center justify-center">
         {[-2, -1, 0, 1, 2].map((offset) => (
-          <div
-            key={offset}
-            className={`h-9 w-full ${offset === 0 ? "" : Math.abs(offset) === 2 ? "bg-surface-container-lowest/70" : "bg-surface-container-lowest/35"}`}
-          />
+          <div key={offset} className={`h-9 w-full ${offset === 0 ? "" : Math.abs(offset) === 2 ? "bg-surface-container-lowest/70" : "bg-surface-container-lowest/35"}`} />
         ))}
       </div>
     </div>

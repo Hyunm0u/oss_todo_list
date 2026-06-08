@@ -25,16 +25,15 @@ const initialData = {
 
 const AppContext = createContext(null);
 
-function todayISO() {
-  const now = new Date();
-  return toISODate(now);
-}
-
 export function toISODate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+function todayISO() {
+  return toISODate(new Date());
 }
 
 function parseISODate(value) {
@@ -177,8 +176,7 @@ export function AppProvider({ children }) {
       const now = new Date().toISOString();
       const exists = current.events.find((item) => item.id === payload.id);
       if (exists && options.scope === "future" && exists.recurrenceGroupId) {
-        const cutoff = exists.date;
-        const kept = current.events.filter((event) => event.recurrenceGroupId !== exists.recurrenceGroupId || event.date < cutoff);
+        const kept = current.events.filter((event) => event.recurrenceGroupId !== exists.recurrenceGroupId || event.date < exists.date);
         return { ...current, events: [...kept, ...expandRecurringEvents({ ...payload, recurrenceGroupId: exists.recurrenceGroupId }, now)] };
       }
       if (!exists && payload.recurring && payload.recurring !== "none") {

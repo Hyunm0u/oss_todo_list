@@ -86,5 +86,18 @@ export function calculateStats(tasks, events) {
         ? "기한이 지난 작업이 있습니다. 완료하거나 일정을 다시 조정해 보세요."
         : `${bestDay?.label ?? "이번 주"}의 완료 흐름이 가장 좋습니다.`;
 
-  return { totalTasks, completedTasks, completionRate, overdueTasks, totalEvents: events.length, weeklyTrend, monthlyTrend, categoryDistribution, currentStreak, mostPostponedTask, upcomingEvents, insight };
+  return {
+    totalTasks,
+    completedTasks,
+    completionRate,
+    overdueTasks,
+    totalEvents: events.length,
+    weeklyTrend,
+    monthlyTrend,
+    categoryDistribution,
+    currentStreak,
+    mostPostponedTask,
+    upcomingEvents,
+    insight,
+  };
 }
