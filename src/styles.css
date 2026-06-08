@@ -1,0 +1,203 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --color-background: 248 249 250;
+    --color-surface: 248 249 250;
+    --color-primary: 0 80 203;
+    --color-secondary: 140 80 0;
+    --color-tertiary: 182 0 9;
+    --color-error: 186 26 26;
+    --color-outline: 114 118 135;
+    --color-outline-variant: 194 198 216;
+    --color-on-background: 25 28 29;
+    --color-on-surface: 25 28 29;
+    --color-on-surface-variant: 66 70 86;
+    --color-on-primary: 255 255 255;
+    --color-on-primary-container: 248 247 255;
+    --color-on-secondary: 255 255 255;
+    --color-on-secondary-container: 99 55 0;
+    --color-on-tertiary: 255 255 255;
+    --color-on-tertiary-container: 255 246 244;
+    --color-on-error: 255 255 255;
+    --color-on-error-container: 147 0 10;
+    --color-primary-container: 0 102 255;
+    --color-secondary-container: 254 148 0;
+    --color-tertiary-container: 222 33 28;
+    --color-error-container: 255 218 214;
+    --color-primary-fixed: 218 225 255;
+    --color-primary-fixed-dim: 179 197 255;
+    --color-secondary-fixed: 255 220 191;
+    --color-secondary-fixed-dim: 255 184 116;
+    --color-tertiary-fixed: 255 218 213;
+    --color-tertiary-fixed-dim: 255 180 170;
+    --color-on-primary-fixed: 0 24 73;
+    --color-on-primary-fixed-variant: 0 63 164;
+    --color-on-secondary-fixed: 45 22 0;
+    --color-on-secondary-fixed-variant: 106 59 0;
+    --color-on-tertiary-fixed: 65 0 1;
+    --color-on-tertiary-fixed-variant: 147 0 5;
+    --color-surface-container-lowest: 255 255 255;
+    --color-surface-container-low: 243 244 245;
+    --color-surface-container: 237 238 239;
+    --color-surface-container-high: 231 232 233;
+    --color-surface-container-highest: 225 227 228;
+    --color-surface-variant: 225 227 228;
+    --color-surface-dim: 217 218 219;
+    --color-surface-bright: 248 249 250;
+    --color-surface-tint: 0 84 214;
+    --color-inverse-surface: 46 49 50;
+    --color-inverse-on-surface: 240 241 242;
+    --color-inverse-primary: 179 197 255;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --color-background: 15 18 24;
+    --color-surface: 15 18 24;
+    --color-primary: 146 181 255;
+    --color-secondary: 255 189 122;
+    --color-tertiary: 255 178 171;
+    --color-error: 255 180 171;
+    --color-outline: 143 148 164;
+    --color-outline-variant: 64 69 84;
+    --color-on-background: 232 234 240;
+    --color-on-surface: 232 234 240;
+    --color-on-surface-variant: 196 200 215;
+    --color-on-primary: 0 42 110;
+    --color-on-primary-container: 232 238 255;
+    --color-on-secondary: 76 42 0;
+    --color-on-secondary-container: 255 237 221;
+    --color-on-tertiary: 99 0 4;
+    --color-on-tertiary-container: 255 237 234;
+    --color-on-error: 105 0 5;
+    --color-on-error-container: 255 237 234;
+    --color-primary-container: 19 73 164;
+    --color-secondary-container: 117 66 0;
+    --color-tertiary-container: 146 0 9;
+    --color-error-container: 140 0 8;
+    --color-primary-fixed: 35 53 92;
+    --color-primary-fixed-dim: 47 70 120;
+    --color-secondary-fixed: 82 53 25;
+    --color-secondary-fixed-dim: 112 70 26;
+    --color-tertiary-fixed: 92 45 48;
+    --color-tertiary-fixed-dim: 120 53 57;
+    --color-on-primary-fixed: 226 233 255;
+    --color-on-primary-fixed-variant: 188 206 255;
+    --color-on-secondary-fixed: 255 237 221;
+    --color-on-secondary-fixed-variant: 255 208 162;
+    --color-on-tertiary-fixed: 255 237 234;
+    --color-on-tertiary-fixed-variant: 255 202 196;
+    --color-surface-container-lowest: 8 11 16;
+    --color-surface-container-low: 22 26 34;
+    --color-surface-container: 29 34 43;
+    --color-surface-container-high: 37 42 53;
+    --color-surface-container-highest: 47 53 65;
+    --color-surface-variant: 42 47 59;
+    --color-surface-dim: 11 14 20;
+    --color-surface-bright: 38 43 53;
+    --color-surface-tint: 146 181 255;
+    --color-inverse-surface: 232 234 240;
+    --color-inverse-on-surface: 30 34 40;
+    --color-inverse-primary: 0 80 203;
+  }
+
+  html {
+    background: rgb(var(--color-background));
+  }
+
+  body {
+    min-height: max(884px, 100dvh);
+    margin: 0;
+    font-family: "Hanken Grotesk", sans-serif;
+    color: rgb(var(--color-on-background));
+    background: rgb(var(--color-background));
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  input,
+  select,
+  textarea {
+    color: rgb(var(--color-on-surface));
+  }
+}
+
+@layer utilities {
+  .field-input {
+    @apply w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-container-padding py-3 text-body-md text-on-surface transition-colors placeholder:text-outline focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary;
+  }
+
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .satisfying-snap:checked {
+    animation: snap 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .pulse-ongoing {
+    animation: pulse-light 2s infinite ease-in-out;
+  }
+
+  .time-wheel {
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: y mandatory;
+  }
+
+  .time-wheel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+  }
+}
+
+@keyframes snap {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyFlow - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div class="min-h-screen bg-slate-50 p-6">
+    <header class="mb-8 rounded-3xl bg-white p-6 shadow-lg">
+      <h1 class="text-3xl font-bold">StudyFlow</h1>
+      <p class="mt-2 text-slate-500">오늘의 학습 흐름을 시작해보세요.</p>
+    </header>
+
+    <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mb-8">
+      <article class="rounded-3xl bg-white p-6 shadow-sm">
+        <p class="text-sm uppercase text-slate-500">전체 작업</p>
+        <p class="mt-4 text-3xl font-semibold">24</p>
+      </article>
+      <article class="rounded-3xl bg-white p-6 shadow-sm">
+        <p class="text-sm uppercase text-slate-500">완료</p>
+        <p class="mt-4 text-3xl font-semibold">18</p>
+      </article>
+      <article class="rounded-3xl bg-white p-6 shadow-sm">
+        <p class="text-sm uppercase text-slate-500">완료율</p>
+        <p class="mt-4 text-3xl font-semibold">75%</p>
+      </article>
+      <article class="rounded-3xl bg-white p-6 shadow-sm">
+        <p class="text-sm uppercase text-slate-500">연속 기록</p>
+        <p class="mt-4 text-3xl font-semibold">7일</p>
+      </article>
+    </section>
+
+    <section class="grid gap-6 xl:grid-cols-2 mb-8">
+      <div class="rounded-3xl bg-white p-6 shadow-sm">
+        <h2 class="text-xl font-semibold">오늘의 작업</h2>
+        <ul class="mt-4 space-y-4">
+          <li class="rounded-3xl border border-slate-200 p-4">리액트 페이지 설계하기</li>
+          <li class="rounded-3xl border border-slate-200 p-4">데이터 저장소 동기화</li>
+          <li class="rounded-3xl border border-slate-200 p-4">UI 컴포넌트 개선</li>
+        </ul>
+      </div>
+      <div class="rounded-3xl bg-white p-6 shadow-sm">
+        <h2 class="text-xl font-semibold">오늘의 일정</h2>
+        <ul class="mt-4 space-y-4">
+          <li class="rounded-3xl border border-slate-200 p-4">오전 10:00 - 스터디 미팅</li>
+          <li class="rounded-3xl border border-slate-200 p-4">오후 2:00 - 콘텐츠 작성</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="rounded-3xl bg-white p-6 shadow-sm">
+      <h2 class="text-xl font-semibold">빠른 실행</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <a class="rounded-3xl border border-slate-200 p-4 text-center hover:bg-slate-50" href="/add">작업 추가</a>
+        <a class="rounded-3xl border border-slate-200 p-4 text-center hover:bg-slate-50" href="/calendar">캘린더</a>
+        <a class="rounded-3xl border border-slate-200 p-4 text-center hover:bg-slate-50" href="/stats">통계</a>
+        <a class="rounded-3xl border border-slate-200 p-4 text-center hover:bg-slate-50" href="/settings">설정</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
