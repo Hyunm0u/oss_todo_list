@@ -1,0 +1,74 @@
+StudyFlow 실행 안내
+
+1) 프로젝트 구성
+
+- `./`
+  - React + Vite로 만든 TODO 리스트 / 스케줄 앱 프런트엔드
+  - 브라우저에서 실행되는 메인 앱
+- `./server`
+  - Express 기반 AI 서버
+  - AI 기능을 제공하는 백엔드
+  - 실제 OpenAI API 호출 또는 로컬 fallback 메시지를 처리
+
+2) TODO 리스트 앱 실행 방법
+
+1. 프로젝트 루트 폴더로 이동:
+   cd path/to/oss_todo_list
+
+2. 라이브러리 설치(최초 1회):
+   npm install
+
+3. 개발 서버 실행:
+   npm run dev
+
+4. 브라우저에서 열기:
+   http://localhost:5173
+
+- 이 주소가 TODO 리스트 앱입니다.
+- 앱에서 작업을 추가하고, 통계와 설정을 확인할 수 있습니다.
+
+3) AI 서버 실행 방법
+
+1. AI 서버 폴더로 이동:
+   cd path/to/oss_todo_list/server
+
+2. 라이브러리 설치(최초 1회):
+   npm install
+
+3. OpenAI API를 실제로 사용하려면 환경 변수 설정:
+   Windows PowerShell:
+   $env:OPENAI_API_KEY="your_openai_api_key"
+
+   macOS/Linux:
+   export OPENAI_API_KEY="your_openai_api_key"
+
+4. 서버 실행:
+   npm start
+
+5. AI 서버 상태 확인:
+   브라우저에서 http://localhost:5174로 열면 간단한 메시지가 나옵니다.
+
+- `http://localhost:5174/ai/motivation` : AI 동기부여 메시지를 반환
+- `http://localhost:5174/ai/insights` : TODO/일정 목록을 POST로 보내면 요약, 추천, 동기부여를 반환
+
+4) 앱과 AI 서버 관계
+
+- TODO 리스트 앱은 프런트엔드이고, 실제 화면과 데이터 관리가 이쪽에서 이뤄집니다.
+- AI 서버는 별도 프로세스에서 동작하며, 프런트엔드가 AI 분석 데이터를 요청하는 역할을 합니다.
+- `설정`에서 AI 기능을 켜야 `통계` 화면에 AI 분석 결과가 표시됩니다.
+
+5) 실행 순서 추천
+
+1) 먼저 TODO 앱 프런트엔드를 켭니다:
+   cd path/to/oss_todo_list
+   npm run dev
+
+2) 다른 터미널에서 AI 서버를 켭니다:
+   cd path/to/oss_todo_list/server
+   npm start
+
+3) 설정에서 AI 기능을 켜고 통계 페이지로 이동하면 AI 분석 결과를 볼 수 있습니다.
+
+6) 종료
+
+- 터미널에서 `Ctrl + C`로 각 서버를 멈출 수 있습니다.

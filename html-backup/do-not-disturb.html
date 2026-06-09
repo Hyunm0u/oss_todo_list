@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyFlow - 방해 금지</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div class="min-h-screen bg-slate-50 p-6">
+    <header class="mb-8 rounded-3xl bg-white p-6 shadow-lg">
+      <h1 class="text-3xl font-bold">방해 금지</h1>
+      <p class="mt-2 text-slate-500">집중 시간 동안 알림을 음소거합니다.</p>
+    </header>
+
+    <form class="space-y-6 rounded-3xl bg-white p-6 shadow-sm">
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-600">이름</label>
+        <input class="w-full rounded-3xl border border-slate-200 bg-slate-50 p-4" value="Focus time" />
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="space-y-2 text-sm text-slate-600">
+          <span>시작</span>
+          <input type="time" class="field-input w-full rounded-3xl border border-slate-200 bg-slate-50 p-4" value="22:00" />
+        </label>
+        <label class="space-y-2 text-sm text-slate-600">
+          <span>종료</span>
+          <input type="time" class="field-input w-full rounded-3xl border border-slate-200 bg-slate-50 p-4" value="07:00" />
+        </label>
+      </div>
+
+      <div>
+        <p class="mb-3 text-sm font-medium text-slate-600">요일 선택</p>
+        <div class="flex flex-wrap gap-3">
+          <button type="button" class="rounded-full border border-slate-200 bg-slate-900 px-4 py-3 text-white">월</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-slate-900 px-4 py-3 text-white">화</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-slate-900 px-4 py-3 text-white">수</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-slate-900 px-4 py-3 text-white">목</button>
+          <button type="button" class="rounded-full border border-slate-200 bg-slate-900 px-4 py-3 text-white">금</button>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-slate-50 p-6">
+        <h2 class="text-lg font-semibold">알림 동작</h2>
+        <div class="mt-4 space-y-4">
+          <div class="flex items-center justify-between rounded-3xl border border-slate-200 p-4">
+            <span>알림 알림 음소거</span>
+            <span class="rounded-full bg-slate-900 px-4 py-2 text-white">켜짐</span>
+          </div>
+          <div class="flex items-center justify-between rounded-3xl border border-slate-200 p-4">
+            <span>알림 소리 음소거</span>
+            <span class="rounded-full bg-slate-900 px-4 py-2 text-white">켜짐</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        <button type="button" class="rounded-3xl border border-slate-200 bg-white p-4">취소</button>
+        <button type="submit" class="sm:col-span-2 rounded-3xl bg-slate-900 p-4 text-white">저장</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

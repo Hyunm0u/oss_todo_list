@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyFlow - 캘린더</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div class="min-h-screen bg-slate-50 p-6">
+    <header class="mb-8 rounded-3xl bg-white p-6 shadow-lg">
+      <h1 class="text-3xl font-bold">캘린더</h1>
+      <p class="mt-2 text-slate-500">월간 일정을 한눈에 확인하세요.</p>
+    </header>
+
+    <section class="mb-8 rounded-3xl bg-white p-6 shadow-sm">
+      <div class="mb-6 flex items-center justify-between">
+        <div>
+          <p class="text-sm text-slate-500">2026년 6월</p>
+          <h2 class="text-xl font-semibold">월별 달력</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="rounded-full border border-slate-200 p-3">◀</button>
+          <button class="rounded-full border border-slate-200 p-3">▶</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-7 gap-2 text-center text-sm text-slate-500">
+        <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+      </div>
+      <div class="mt-4 grid grid-cols-7 gap-2 text-center text-slate-700">
+        ${Array(42).fill().map((_, i) => `<div class="rounded-2xl p-3 bg-slate-100">${i + 1}</div>`).join('')}
+      </div>
+    </section>
+
+    <section class="rounded-3xl bg-white p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-xl font-semibold">2026년 6월 8일 수요일</h2>
+          <p class="text-slate-500">오늘의 일정</p>
+        </div>
+        <button class="rounded-3xl bg-slate-900 px-4 py-3 text-white">일정 추가</button>
+      </div>
+      <ul class="space-y-4">
+        <li class="rounded-3xl border border-slate-200 p-4">오전 10:00 - 스터디 미팅</li>
+        <li class="rounded-3xl border border-slate-200 p-4">오후 2:00 - 콘텐츠 작성</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
